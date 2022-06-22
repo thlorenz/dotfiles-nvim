@@ -102,7 +102,7 @@ M.load_default_options = function()
     au FileType rust nmap <silent><leader>bb :wa \| Make check --all-targets --all-features<CR>
     au FileType rust nmap <silent><leader>bB :wa \| Make build-bpf<CR>
 
-    au FileType lua noremap tr :wa \| !luafile %<CR>
+    au FileType lua noremap tr :wa \| luafile %<CR>
 
     au FileType dart noremap <leader>m :wa \| !dart %<CR>
 
