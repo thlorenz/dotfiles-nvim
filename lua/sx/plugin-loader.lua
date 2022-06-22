@@ -19,7 +19,7 @@ function plugin_loader.init(opts)
   local init_opts = {
     package_root = opts.package_root or join_paths(vim.fn.stdpath "data", "site", "pack"),
     compile_path = compile_path,
-    snapshot_path = snapshot_path,
+    -- snapshot_path = snapshot_path,
     log = { level = "warn" },
     git = {
       clone_timeout = 300,
@@ -40,7 +40,7 @@ function plugin_loader.init(opts)
     vim.cmd "packadd packer.nvim"
     -- IMPORTANT: we only set this the very first time to avoid constantly triggering the rollback function
     -- https://github.com/wbthomason/packer.nvim/blob/c576ab3f1488ee86d60fd340d01ade08dcabd256/lua/packer.lua#L998-L995
-    init_opts.snapshot = default_snapshot
+    -- init_opts.snapshot = default_snapshot
   end
 
   local status_ok, packer = pcall(require, "packer")
