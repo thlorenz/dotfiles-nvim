@@ -88,10 +88,15 @@ packer.startup(function(use)
 
   use {
     "lewis6991/gitsigns.nvim",
-    config = function()
-      require("sx.plugin.gitsigns").setup()
-    end,
+    config = function() require("sx.plugin.gitsigns").setup() end,
     event = "BufRead",
+  }
+
+  -- Make and Quickfix
+  require("sx.plugin.dispatch").source()
+  use { 'tpope/vim-dispatch',
+    opt = true,
+    cmd = { 'Dispatch', 'Make', 'Focus', 'Start' },
   }
 
   --
