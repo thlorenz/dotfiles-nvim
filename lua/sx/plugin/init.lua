@@ -9,6 +9,10 @@ end
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
+  --
+  -- Navigation
+  --
+  
   -- Tmux Integration
   use {
     'alexghergh/nvim-tmux-navigation',
@@ -25,7 +29,6 @@ packer.startup(function(use)
     end
   }
 
-  -- Navigation
   use {
     'kyazdani42/nvim-tree.lua',
     requires = {
@@ -55,6 +58,46 @@ packer.startup(function(use)
     requires = { "nvim-telescope/telescope.nvim" },
   }
 
+  --
+  -- Tools
+  --
+
+  -- Git
+
+  use {
+    'tpope/vim-fugitive',
+    opt = true,
+    cmd = {
+      "G",
+      "Git",
+      "Gdiffsplit",
+      "Gread",
+      "Gwrite",
+      "Ggrep",
+      "GMove",
+      "GDelete",
+      "GBrowse",
+      "GRemove",
+      "GRename",
+      "Glgrep",
+      "Gedit"
+    },
+    ft = { "fugitive" }
+  }
+  use { 'skanehira/gh.vim', opt = true, cmd = { 'gh' } }
+
+  use {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("sx.plugin.gitsigns").setup()
+    end,
+    event = "BufRead",
+  }
+
+  --
+  -- Shortcuts
+  --
+
   -- WhichKey
   use {
     "max397574/which-key.nvim",
@@ -62,7 +105,9 @@ packer.startup(function(use)
     event = "BufWinEnter"
   }
 
+  --
   -- Editing
+  --
   use {
     "nvim-treesitter/nvim-treesitter",
     config = function() require("sx.plugin.treesitter").setup() end,
