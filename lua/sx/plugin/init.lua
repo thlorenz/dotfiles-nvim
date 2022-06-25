@@ -62,6 +62,12 @@ packer.startup(function(use)
     event = "BufWinEnter"
   }
 
+  -- Editing
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    config = function() require("sx.plugin.treesitter").setup() end,
+  }
+
   -- Theme
   use {
     'challenger-deep-theme/vim',
