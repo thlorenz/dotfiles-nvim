@@ -33,9 +33,33 @@ packer.startup(function(use)
     },
     opt = true,
     cmd = { 'NvimTreeToggle' },
+    config = function() require('sx.plugin.nvim-tree').setup() end
+  }
+
+  -- Telescope
+  use {
+    "nvim-telescope/telescope.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function() require('sx.plugin.telescope').setup() end
+  }
+  use {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    requires = { "nvim-telescope/telescope.nvim" },
+    run = "make",
+  }
+  use {
+    "rcarriga/nvim-notify",
     config = function()
-      require('sx.plugin.nvim-tree').setup()
+      require("sx.plugin.notify").setup()
     end,
+    requires = { "nvim-telescope/telescope.nvim" },
+  }
+
+  -- WhichKey
+  use {
+    "max397574/which-key.nvim",
+    config = function() require("sx.plugin.which-key").setup() end,
+    event = "BufWinEnter"
   }
 
   -- Theme
@@ -44,7 +68,6 @@ packer.startup(function(use)
     as = 'challenger_deep',
     config = function() vim.cmd 'colorscheme challenger_deep' end
   }
-
 
   if packer_bootstrap then
     packer.sync()
