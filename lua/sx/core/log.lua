@@ -163,7 +163,7 @@ end
 ---Retrieves the path of the logfile
 ---@return string path of the logfile
 function Log:get_path()
-  return string.format("%s/%s.log", get_cache_dir(), "lvim")
+  return string.format("%s/%s.log", get_cache_dir(), "sx")
 end
 
 ---Add a log entry at TRACE level
