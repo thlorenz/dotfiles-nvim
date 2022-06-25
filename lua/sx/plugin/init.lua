@@ -118,6 +118,19 @@ packer.startup(function(use)
     config = function() require("sx.plugin.treesitter").setup() end,
   }
 
+  -- LSP
+
+  use { "neovim/nvim-lspconfig" }
+  -- { "tamago324/nlsp-settings.nvim" },
+  -- { "jose-elias-alvarez/null-ls.nvim", },
+  use { "williamboman/nvim-lsp-installer" }
+  use { 
+    'mhartington/formatter.nvim',
+    config = function() require("sx.plugin.formatter").setup() end,
+  }
+
+  use { "antoinemadec/FixCursorHold.nvim" } -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
+
   -- Theme
   use {
     'challenger-deep-theme/vim',

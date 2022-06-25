@@ -87,7 +87,6 @@ local function config()
 end
 
 M.setup = function()
-  -- avoid running in headless mode since it's harder to detect failures
   if #vim.api.nvim_list_uis() == 0 then
     Log:debug "headless mode detected, skipping running setup for treesitter"
     return
