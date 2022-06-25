@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+export NEOVIM_RUNTIME_DIR="${NEOVIM_RUNTIME_DIR:-"/Users/thlorenz/.local/share/neovim"}"
+export NEOVIM_CONFIG_DIR="${NEOVIM_CONFIG_DIR:-"$DIR/.."}"
+export NEOVIM_CACHE_DIR="${NEOVIM_CACHE_DIR:-"/Users/thlorenz/.cache/neovim"}"
+
+rm $NEOVIM_RUNTIME_DIR
+ln -s $DIR/../ $NEOVIM_RUNTIME_DIR
+
+exec nvim -u "$NEOVIM_RUNTIME_DIR/init.lua" "$@"

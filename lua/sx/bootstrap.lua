@@ -29,10 +29,10 @@ function _G.require_clean(module)
   return requested
 end
 
----Get the full path to `$SCRATCHVIM_RUNTIME_DIR`
+---Get the full path to `$NEOVIM_RUNTIME_DIR`
 ---@return string
 function _G.get_runtime_dir()
-  local sx_runtime_dir = os.getenv "SCRATCHVIM_RUNTIME_DIR"
+  local sx_runtime_dir = os.getenv "NEOVIM_RUNTIME_DIR"
   if not sx_runtime_dir then
     -- when nvim is used directly
     return vim.call("stdpath", "data")
@@ -40,20 +40,20 @@ function _G.get_runtime_dir()
   return sx_runtime_dir
 end
 
----Get the full path to `$SCRATCHVIM_CONFIG_DIR`
+---Get the full path to `$NEOVIM_CONFIG_DIR`
 ---@return string
 function _G.get_config_dir()
-  local sx_config_dir = os.getenv "SCRATCHVIM_CONFIG_DIR"
+  local sx_config_dir = os.getenv "NEOVIM_CONFIG_DIR"
   if not sx_config_dir then
     return vim.call("stdpath", "config")
   end
   return sx_config_dir
 end
 
----Get the full path to `$SCRATCHVIM_CACHE_DIR`
+---Get the full path to `$NEOVIM_CACHE_DIR`
 ---@return string
 function _G.get_cache_dir()
-  local sx_cache_dir = os.getenv "SCRATCHVIM_CACHE_DIR"
+  local sx_cache_dir = os.getenv "NEOVIM_CACHE_DIR"
   if not sx_cache_dir then
     return vim.call("stdpath", "cache")
   end
@@ -70,7 +70,7 @@ function M:init(base_dir)
   self.packer_install_dir = join_paths(self.runtime_dir, "site", "pack", "packer", "start", "packer.nvim")
   self.packer_cache_path = join_paths(self.config_dir, "plugin", "packer_compiled.lua")
 
-  ---@meta overridden to use SCRATCHVIM_CACHE_DIR instead, since a lot of plugins call this function interally
+  ---@meta overridden to use NEOVIM_CACHE_DIR instead, since a lot of plugins call this function interally
   ---NOTE: changes to "data" are currently unstable, see #2507
   vim.fn.stdpath = function(what)
     if what == "cache" then
@@ -85,7 +85,7 @@ function M:init(base_dir)
     return base_dir
   end
 
-  if os.getenv "SCRATCHVIM_RUNTIME_DIR" then
+  if os.getenv "NEOVIM_RUNTIME_DIR" then
     vim.opt.rtp:remove(join_paths(vim.call("stdpath", "data"), "site"))
     vim.opt.rtp:remove(join_paths(vim.call("stdpath", "data"), "site", "after"))
     vim.opt.rtp:prepend(join_paths(self.runtime_dir, "site"))
