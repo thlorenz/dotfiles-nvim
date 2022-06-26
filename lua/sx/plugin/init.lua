@@ -41,7 +41,9 @@ packer.startup(function(use)
 		end,
 	})
 
+	--
 	-- Telescope
+	--
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
@@ -49,11 +51,13 @@ packer.startup(function(use)
 			require("sx.plugin.telescope").setup()
 		end,
 	})
+	-- Files
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
 		requires = { "nvim-telescope/telescope.nvim" },
 		run = "make",
 	})
+	-- Notifications
 	use({
 		"rcarriga/nvim-notify",
 		config = function()
@@ -61,6 +65,21 @@ packer.startup(function(use)
 		end,
 		requires = { "nvim-telescope/telescope.nvim" },
 	})
+	-- github
+	-- https://github.com/nvim-telescope/telescope-github.nvim
+	use({
+		"nvim-telescope/telescope-github.nvim",
+		requires = {
+			"nvim-telescope/telescope.nvim",
+		},
+	})
+	-- dash
+	use({
+		"mrjones2014/dash.nvim",
+		run = "make install",
+	})
+	-- browser bookmarks
+	use({ "dhruvmanila/telescope-bookmarks.nvim" })
 
 	--
 	-- Tools
@@ -133,13 +152,6 @@ packer.startup(function(use)
 			require("sx.plugin.formatter").setup()
 		end,
 	})
-
-	-- External Integration
-	use({
-		"mrjones2014/dash.nvim",
-		run = "make install",
-	})
-	use({ "dhruvmanila/telescope-bookmarks.nvim" })
 
 	-- LSP/CMP
 	use({

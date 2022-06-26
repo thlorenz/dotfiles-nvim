@@ -137,6 +137,7 @@ function M.setup()
 		telescope.load_extension("fzf")
 		telescope.load_extension("dash")
 		telescope.load_extension("bookmarks")
+		telescope.load_extension("gh")
 	end)
 end
 M.setup()

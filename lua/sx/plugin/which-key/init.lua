@@ -159,6 +159,14 @@ local function config()
 					"<cmd>Gitsigns diffthis HEAD<cr>",
 					"Git Diff",
 				},
+
+				h = {
+					name = "github",
+					i = { require("telescope").extensions.gh.issues, "Issues" },
+					p = { require("telescope").extensions.gh.pull_request, "Pull Request" },
+					g = { require("telescope").extensions.gh.gist, "Gist" },
+					r = { require("telescope").extensions.gh.run, "Run" },
+				},
 			},
 
 			-- LSP
