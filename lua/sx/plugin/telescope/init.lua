@@ -81,6 +81,9 @@ local function config()
 				override_file_sorter = true, -- override the file sorter
 				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			},
+			dash = {
+				search_engine = "google",
+			},
 		},
 	}
 end
@@ -124,8 +127,9 @@ function M.setup()
 
 	-- Register Extensions
 	pcall(function()
-		require("telescope").load_extension("notify")
-		require("telescope").load_extension("fzf")
+		telescope.load_extension("notify")
+		telescope.load_extension("fzf")
+		telescope.load_extension("dash")
 	end)
 end
 

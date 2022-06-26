@@ -107,6 +107,7 @@ local function config()
 				m = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
 				r = { "<cmd>Telescope registers<cr>", "Registers" },
 				s = { "<cmd>Telescope live_grep<cr>", "Text" },
+				u = { "<cmd>Telescope grep_string<cr>", "Text under cursor" },
 				k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 				c = { "<cmd>Telescope commands<cr>", "Commands" },
 				o = { "<cmd>Telescope lsp_document_symbols<cr>", "Symbols" },
@@ -196,9 +197,27 @@ local function config()
 				},
 			},
 
-			-- TODO: [d] pull most of dap from coc setup
+			h = {
+				function()
+					vim.cmd("DashWord")
+				end,
+				"DashWord",
+			},
+			H = {
+				function()
+					vim.cmd("Dash")
+				end,
+				"Dash",
+			},
 
-			n = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
+			n = {
+				function()
+					vim.cmd("NvimTreeToggle")
+				end,
+				"Explorer",
+			},
+
+			-- TODO: [d] pull most of dap from coc setup
 		},
 	}
 

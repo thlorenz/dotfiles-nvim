@@ -134,6 +134,12 @@ packer.startup(function(use)
 		end,
 	})
 
+	-- External Integration
+	use({
+		"mrjones2014/dash.nvim",
+		run = "make install",
+	})
+
 	-- LSP/CMP
 	use({
 		"neovim/nvim-lspconfig",
