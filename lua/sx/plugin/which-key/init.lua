@@ -97,6 +97,7 @@ local function config()
 				F = { "<cmd>Telescope find_files<cr>", "Find File" },
 				f = { "<cmd>Telescope git_files<cr>", "Find Git File" },
 				r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+				b = { "<cmd>Telescope bookmarks<cr>", "Bookmarks" },
 			},
 
 			s = {

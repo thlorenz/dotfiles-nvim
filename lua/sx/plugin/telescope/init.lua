@@ -84,6 +84,12 @@ local function config()
 			dash = {
 				search_engine = "google",
 			},
+			bookmarks = {
+				selected_browser = "chrome",
+				url_open_command = "open",
+				url_open_plugin = nil,
+				full_path = true,
+			},
 		},
 	}
 end
@@ -130,7 +136,9 @@ function M.setup()
 		telescope.load_extension("notify")
 		telescope.load_extension("fzf")
 		telescope.load_extension("dash")
+		telescope.load_extension("bookmarks")
 	end)
 end
+M.setup()
 
 return M
