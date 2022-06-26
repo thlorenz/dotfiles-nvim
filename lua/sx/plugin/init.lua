@@ -141,12 +141,12 @@ packer.startup(function(use)
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-buffer",
-			"saadparwaiz1/cmp_luasnip",
-			"L3MON4D3/LuaSnip",
+			"quangnguyen30192/cmp-nvim-ultisnips",
+			"SirVer/ultisnips",
 		},
 		config = function()
 			require("sx.plugin.lsp").setup()
-			require("sx.snippets").setup()
+			-- require("sx.snippets").setup()
 		end,
 	})
 

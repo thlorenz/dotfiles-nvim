@@ -2,12 +2,12 @@ local M = {}
 
 local Log = require("sx.core.log")
 
-local function config(cmp, luasnip)
+local function config(cmp)
 	return {
 
 		snippet = {
 			expand = function(args)
-				luasnip.lsp_expand(args.body)
+				vim.fn["UltiSnips#Anon"](args.body)
 			end,
 		},
 
@@ -17,8 +17,6 @@ local function config(cmp, luasnip)
 			["<C-n>"] = function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
-				elseif luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump()
 				else
 					fallback()
 				end
@@ -26,15 +24,13 @@ local function config(cmp, luasnip)
 			["<C-p>"] = function(fallback)
 				if cmp.visible() then
 					cmp.select_prev_item()
-				elseif luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump(-1)
 				else
 					fallback()
 				end
 			end,
 		},
 		sources = {
-			{ name = "luasnip" },
+			{ name = "ultisnips" },
 			{ name = "nvim_lsp" },
 			{ name = "buffer" },
 		},
@@ -53,12 +49,12 @@ function M.setup()
 		Log:error("Failed to load cmp")
 	end
 
-	local status_ok, luasnip = pcall(require, "luasnip")
+	local status_ok, ultisnips = pcall(require, "ultisnips")
 	if not status_ok then
-		Log:error("Failed to load luasnip")
+		Log:error("Failed to load ultisnips")
 	end
 
-	local conf = config(cmp, luasnip)
+	local conf = config(cmp)
 	cmp.setup(conf)
 
 	-- lspconfig
@@ -70,6 +66,9 @@ function M.setup()
 	lspconfig.tsserver.setup({
 		capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	})
+
+	-- ultisnips
+	vim.cmd([[ let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips" ]])
 
 	-- keymaps
 	vim.cmd([[
