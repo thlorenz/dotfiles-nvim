@@ -32,6 +32,7 @@ local function config(cmp)
 		sources = {
 			{ name = "ultisnips" },
 			{ name = "nvim_lsp" },
+			{ name = "path" },
 			{ name = "buffer" },
 		},
 	}
