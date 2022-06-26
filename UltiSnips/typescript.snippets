@@ -1,0 +1,69 @@
+snippet ima "import strict assert"
+import { strict as assert } from 'assert'
+endsnippet
+
+snippet imfs "import fs promises"
+import { promises as fs } from 'fs'
+endsnippet
+
+snippet todo "TODO"
+// TODO(thlorenz): $0
+endsnippet
+
+snippet hdr "header comment"
+// -----------------
+// $1
+// -----------------
+endsnippet
+
+snippet tst "tape test"
+test('$1', (t) => {
+	$2
+})
+endsnippet
+
+snippet atst "async tape test"
+test('$1', async (t) => {
+	$2
+})
+endsnippet
+
+
+snippet main "main function"
+if (module === require.main) {
+	async function main() {
+		$1
+	}
+
+	main()
+		.then(() => process.exit(0))
+		.catch((err: any) => {
+			console.error(err)
+			process.exit(1)
+		})
+}
+endsnippet
+
+snippet react_provider "React Provider"
+import React from 'react'
+import { strict as assert } from 'assert'
+
+export type $1 = {}
+
+const $1Context = React.createContext<$1>({})
+
+export function use$1() {
+  const context = React.useContext($1Context)
+  assert(
+    context != null,
+    'use$1 must be used within a $1 provider'
+  )
+  return context
+}
+
+export function $1Provider(props: any) {
+  $2
+
+  return <$1Context.Provider value={} {...props} />
+}
+endsnippet
