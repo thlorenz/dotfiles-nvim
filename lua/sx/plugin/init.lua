@@ -122,6 +122,18 @@ packer.startup(function(use)
 	use({ "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } })
 
 	--
+	-- Integration with External Tools
+	--
+	-- https://github.com/voldikss/vim-browser-search
+	use({
+		"voldikss/vim-browser-search",
+		event = "VimEnter",
+		config = function()
+			require("sx.plugin.browser-search").setup()
+		end,
+	})
+
+	--
 	-- Shortcuts
 	--
 
