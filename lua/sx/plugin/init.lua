@@ -162,6 +162,17 @@ packer.startup(function(use)
 		end,
 	})
 
+	--
+	-- Startup
+	--
+
+	use({
+		"mhinz/vim-startify",
+		config = function()
+			require("sx.plugin.startify").setup()
+		end,
+	})
+
 	if packer_bootstrap then
 		packer.sync()
 	end
