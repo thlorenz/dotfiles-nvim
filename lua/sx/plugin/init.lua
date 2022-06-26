@@ -146,6 +146,7 @@ packer.startup(function(use)
 		},
 		config = function()
 			require("sx.plugin.lsp").setup()
+			require("sx.snippets").setup()
 		end,
 	})
 
