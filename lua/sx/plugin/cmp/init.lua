@@ -41,7 +41,7 @@ local function config(cmp)
 			{ name = "tmux" },
 		},
 
-		formatting = require("sx.plugin.lsp.formatting"),
+		formatting = require("sx.plugin.cmp.formatting"),
 	}
 end
 

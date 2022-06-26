@@ -134,7 +134,7 @@ packer.startup(function(use)
 		end,
 	})
 
-	-- LSP
+	-- LSP/CMP
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
@@ -145,8 +145,7 @@ packer.startup(function(use)
 			"SirVer/ultisnips",
 		},
 		config = function()
-			require("sx.plugin.lsp").setup()
-			-- require("sx.snippets").setup()
+			require("sx.plugin.cmp").setup()
 		end,
 	})
 
