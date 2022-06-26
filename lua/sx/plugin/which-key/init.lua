@@ -97,6 +97,8 @@ local function config()
 				F = { "<cmd>Telescope find_files<cr>", "Find File" },
 				f = { "<cmd>Telescope git_files<cr>", "Find Git File" },
 				r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+				b = { "<cmd>Telescope bookmarks<cr>", "Bookmarks" },
+				s = { "<cmd>BrowserSearch<cr>", "Browser Search" },
 			},
 
 			s = {
@@ -107,6 +109,7 @@ local function config()
 				m = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
 				r = { "<cmd>Telescope registers<cr>", "Registers" },
 				s = { "<cmd>Telescope live_grep<cr>", "Text" },
+				u = { "<cmd>Telescope grep_string<cr>", "Text under cursor" },
 				k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 				c = { "<cmd>Telescope commands<cr>", "Commands" },
 				o = { "<cmd>Telescope lsp_document_symbols<cr>", "Symbols" },
@@ -157,6 +160,14 @@ local function config()
 					"<cmd>Gitsigns diffthis HEAD<cr>",
 					"Git Diff",
 				},
+
+				h = {
+					name = "github",
+					i = { require("telescope").extensions.gh.issues, "Issues" },
+					p = { require("telescope").extensions.gh.pull_request, "Pull Request" },
+					g = { require("telescope").extensions.gh.gist, "Gist" },
+					r = { require("telescope").extensions.gh.run, "Run" },
+				},
 			},
 
 			-- LSP
@@ -196,9 +207,27 @@ local function config()
 				},
 			},
 
-			-- TODO: [d] pull most of dap from coc setup
+			h = {
+				function()
+					vim.cmd("DashWord")
+				end,
+				"DashWord",
+			},
+			H = {
+				function()
+					vim.cmd("Dash")
+				end,
+				"Dash",
+			},
 
-			n = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
+			n = {
+				function()
+					vim.cmd("NvimTreeToggle")
+				end,
+				"Explorer",
+			},
+
+			-- TODO: [d] pull most of dap from coc setup
 		},
 	}
 

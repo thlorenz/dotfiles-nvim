@@ -41,7 +41,9 @@ packer.startup(function(use)
 		end,
 	})
 
+	--
 	-- Telescope
+	--
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
@@ -49,11 +51,13 @@ packer.startup(function(use)
 			require("sx.plugin.telescope").setup()
 		end,
 	})
+	-- Files
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
 		requires = { "nvim-telescope/telescope.nvim" },
 		run = "make",
 	})
+	-- Notifications
 	use({
 		"rcarriga/nvim-notify",
 		config = function()
@@ -61,6 +65,21 @@ packer.startup(function(use)
 		end,
 		requires = { "nvim-telescope/telescope.nvim" },
 	})
+	-- github
+	-- https://github.com/nvim-telescope/telescope-github.nvim
+	use({
+		"nvim-telescope/telescope-github.nvim",
+		requires = {
+			"nvim-telescope/telescope.nvim",
+		},
+	})
+	-- dash
+	use({
+		"mrjones2014/dash.nvim",
+		run = "make install",
+	})
+	-- browser bookmarks
+	use({ "dhruvmanila/telescope-bookmarks.nvim" })
 
 	--
 	-- Tools
@@ -101,6 +120,18 @@ packer.startup(function(use)
 	-- Make and Quickfix
 	require("sx.plugin.dispatch").source()
 	use({ "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } })
+
+	--
+	-- Integration with External Tools
+	--
+	-- https://github.com/voldikss/vim-browser-search
+	use({
+		"voldikss/vim-browser-search",
+		event = "VimEnter",
+		config = function()
+			require("sx.plugin.browser-search").setup()
+		end,
+	})
 
 	--
 	-- Shortcuts
@@ -159,6 +190,17 @@ packer.startup(function(use)
 		as = "challenger_deep",
 		config = function()
 			vim.cmd("colorscheme challenger_deep")
+		end,
+	})
+
+	--
+	-- Startup
+	--
+
+	use({
+		"mhinz/vim-startify",
+		config = function()
+			require("sx.plugin.startify").setup()
 		end,
 	})
 

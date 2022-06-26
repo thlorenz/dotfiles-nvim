@@ -81,6 +81,15 @@ local function config()
 				override_file_sorter = true, -- override the file sorter
 				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			},
+			dash = {
+				search_engine = "google",
+			},
+			bookmarks = {
+				selected_browser = "chrome",
+				url_open_command = "open",
+				url_open_plugin = nil,
+				full_path = true,
+			},
 		},
 	}
 end
@@ -124,9 +133,13 @@ function M.setup()
 
 	-- Register Extensions
 	pcall(function()
-		require("telescope").load_extension("notify")
-		require("telescope").load_extension("fzf")
+		telescope.load_extension("notify")
+		telescope.load_extension("fzf")
+		telescope.load_extension("dash")
+		telescope.load_extension("bookmarks")
+		telescope.load_extension("gh")
 	end)
 end
+M.setup()
 
 return M
