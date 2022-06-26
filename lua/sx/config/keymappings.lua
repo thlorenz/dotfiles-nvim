@@ -59,6 +59,14 @@ local function config()
 			["cc"] = ":call QuickFixToggle()<CR>",
 
 			["]g"] = vim.diagnostic.goto_next,
+
+			-- Move lines up and down with H and L
+			["<S-l>"] = function()
+				vim.cmd("m .+1<CR>==")
+			end,
+			["<S-h>"] = function()
+				vim.cmd("m .-2<CR>==")
+			end,
 		},
 
 		term_mode = {
@@ -127,6 +135,11 @@ function M.load(keymaps)
 	for mode, mapping in pairs(keymaps) do
 		M.load_mode(mode, mapping)
 	end
+	-- I couldn't figure out how to add the below properly above
+	vim.cmd([[
+    vnoremap <S-h> :m '<-2<CR>gv=gv
+    vnoremap <S-l> :m '>+1<CR>gv=gv
+  ]])
 end
 
 function M.setup()
