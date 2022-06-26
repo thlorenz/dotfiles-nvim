@@ -31,10 +31,17 @@ local function config(cmp)
 		},
 		sources = {
 			{ name = "ultisnips" },
+			{ name = "nvim_lua" },
 			{ name = "nvim_lsp" },
 			{ name = "path" },
-			{ name = "buffer" },
+			{ name = "buffer", keyword_length = 5 },
+			{ name = "calc" },
+			{ name = "treesitter" },
+			{ name = "crates" },
+			{ name = "tmux" },
 		},
+
+		formatting = require("sx.plugin.lsp.formatting"),
 	}
 end
 
