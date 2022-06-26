@@ -17,6 +17,8 @@ local function config(cmp, luasnip)
 			["<C-n>"] = function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
+				elseif luasnip.expand_or_jumpable() then
+					luasnip.expand_or_jump()
 				else
 					fallback()
 				end
@@ -24,6 +26,8 @@ local function config(cmp, luasnip)
 			["<C-p>"] = function(fallback)
 				if cmp.visible() then
 					cmp.select_prev_item()
+				elseif luasnip.expand_or_jumpable() then
+					luasnip.expand_or_jump(-1)
 				else
 					fallback()
 				end
