@@ -139,6 +139,7 @@ packer.startup(function(use)
 		"neovim/nvim-lspconfig",
 		requires = {
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-buffer",
 			"quangnguyen30192/cmp-nvim-ultisnips",
