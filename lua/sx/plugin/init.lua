@@ -80,6 +80,13 @@ packer.startup(function(use)
 	})
 	-- browser bookmarks
 	use({ "dhruvmanila/telescope-bookmarks.nvim" })
+	-- debugging
+	use({
+		"nvim-telescope/telescope-dap.nvim",
+		requires = {
+			"nvim-telescope/telescope.nvim",
+		},
+	})
 
 	--
 	-- Tools
@@ -201,6 +208,26 @@ packer.startup(function(use)
 		"mhinz/vim-startify",
 		config = function()
 			require("sx.plugin.startify").setup()
+		end,
+	})
+
+	--
+	-- Debugging
+	--
+	use({
+		"mfussenegger/nvim-dap",
+		opt = true,
+		event = "BufReadPre",
+		module = { "dap" },
+		wants = { "nvim-dap-virtual-text", "DAPInstall.nvim", "nvim-dap-ui" },
+		requires = {
+			"Pocco81/DAPInstall.nvim",
+			"theHamsta/nvim-dap-virtual-text",
+			"rcarriga/nvim-dap-ui",
+			{ "jbyuki/one-small-step-for-vimkind", module = "osv" },
+		},
+		config = function()
+			require("sx.plugin.dap").setup()
 		end,
 	})
 

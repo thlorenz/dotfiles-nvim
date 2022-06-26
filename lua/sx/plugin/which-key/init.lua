@@ -227,7 +227,47 @@ local function config()
 				"Explorer",
 			},
 
-			-- TODO: [d] pull most of dap from coc setup
+			d = {
+				name = "Debug",
+				-- breakpoints
+				t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+				C = {
+					"<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>",
+					"Conditional Breakpoint",
+				},
+
+				-- stepping
+				["/"] = {
+					"<cmd>lua require'dap'.step_over()<cr>",
+					"Step Over",
+				},
+				b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
+				i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
+				u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
+				c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
+				R = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run to Cursor" },
+
+				-- eval
+				E = { "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", "Evaluate Input" },
+				e = { "<cmd>lua require'dapui'.eval()<cr>", "Evaluate" },
+
+				-- session
+				-- For lua: require("osv").run_this()
+				s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
+
+				d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
+				g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
+				p = { "<cmd>lua require'dap'.pause()<cr>", "Pause" },
+				x = { "<cmd>lua require'dap'.terminate()<cr>", "Terminate" },
+
+				-- ui
+				U = { "<cmd>lua require'dapui'.toggle()<cr>", "Toggle UI" },
+				r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
+				o = { "<cmd>lua require'dapui'.open()<cr>", "UI" },
+				q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
+				h = { "<cmd>lua require'dap.ui.widgets'.hover()<cr>", "Hover Variables" },
+				S = { "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", "Scopes" },
+			},
 		},
 	}
 
