@@ -180,6 +180,22 @@ local function config()
 				e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
 			},
 
+			-- Copy relative/full path to system clipboard
+			j = {
+				f = {
+					function()
+						vim.cmd("let @+ = expand('%')")
+					end,
+					"Copy Relative Path",
+				},
+				F = {
+					function()
+						vim.cmd("let @+ = expand('%:p')")
+					end,
+					"Copy Full Path",
+				},
+			},
+
 			-- TODO: [d] pull most of dap from coc setup
 
 			n = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
