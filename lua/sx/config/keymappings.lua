@@ -34,10 +34,6 @@ local function config()
 		insert_mode = {
 			-- 'jk' for quitting insert mode
 			["jk"] = "<ESC>",
-			-- 'kj' for quitting insert mode
-			["kj"] = "<ESC>",
-			-- 'jj' for quitting insert mode
-			["jj"] = "<ESC>",
 		},
 
 		normal_mode = {
