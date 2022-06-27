@@ -33,6 +33,19 @@ M.setup = function(dap)
 	vim.fn.sign_define("DapStopped", stopped)
 
 	dap.defaults.fallback.terminal_win_cmd = "50vsplit new"
+
+	dap.configurations.rust = {
+		{
+			name = "Launch file",
+			type = "codelldb",
+			request = "launch",
+			program = function()
+				return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+			end,
+			cwd = "${workspaceFolder}",
+			stopOnEntry = true,
+		},
+	}
 end
 
 return M

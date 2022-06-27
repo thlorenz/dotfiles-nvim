@@ -19,6 +19,7 @@ M.setup = function()
 	require("sx.plugin.dap.dap-install").setup()
 	require("sx.plugin.dap.dap-virtual-text").setup()
 	require("sx.plugin.dap.config.lua").setup(dap)
+	require("sx.plugin.dap.config.rust").setup(dap)
 end
 
 return M
