@@ -6,7 +6,7 @@ local M = {}
 M.setup = function(dap)
 	local status_ok, dapui = pcall(require, "dapui")
 	if not status_ok then
-		Log:error("Failed to load dap-ui")
+		Log:error("Failed to load dapui")
 		return
 	end
 

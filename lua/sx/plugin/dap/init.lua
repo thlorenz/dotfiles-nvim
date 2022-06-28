@@ -10,13 +10,13 @@ M.setup = function()
 
 	local status_ok, dap = pcall(require, "dap")
 	if not status_ok then
-		Log:error("Failed to load dap-ui")
+		Log:error("Failed to load dap")
 		return
 	end
 
 	require("sx.plugin.dap.dap").setup(dap)
 	require("sx.plugin.dap.dap-ui").setup(dap)
-	require("sx.plugin.dap.dap-install").setup()
+	-- require("sx.plugin.dap.dap-install").setup()
 	require("sx.plugin.dap.dap-virtual-text").setup()
 	require("sx.plugin.dap.config.lua").setup(dap)
 	require("sx.plugin.dap.config.rust").setup(dap)
