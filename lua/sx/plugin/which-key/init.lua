@@ -175,8 +175,8 @@ local function config()
 			r = { vim.lsp.buf.rename, "Rename" },
 			e = {
 				name = "LSP",
-				d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
-				w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+				d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_dropdown<cr>", "Buffer Diagnostics" },
+				w = { "<cmd>Telescope diagnostics theme=get_dropdown<cr>", "Diagnostics" },
 				i = { "<cmd>LspInfo<cr>", "Info" },
 				j = {
 					vim.diagnostic.goto_next,

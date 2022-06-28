@@ -2,6 +2,41 @@ local Log = require("sx.core.log")
 
 local M = {}
 
+local function use_small_dialog(ctx)
+	if ctx.finder and ctx.finder.results and ctx.finder.results[1] then
+		local fst = ctx.finder.results[1]
+		local client_name = fst.value and fst.value.add and fst.value.add.client_name
+		return client_name == "tsserver"
+	end
+	return false
+end
+
+local function is_table(t)
+	return t ~= nil and type(t) == "table"
+end
+
+local function get_desired_width(ctx)
+	local len = 0
+	if ctx.finder and ctx.finder.results then
+		for k, v in pairs(ctx.finder.results) do
+			for k, v in pairs(v) do
+				if is_table(v) then
+					local add = v.add
+					if add ~= nil then
+						if add.client_name ~= nil then
+							len = len + #add.client_name
+						end
+						if add.command_title ~= nil then
+							len = len + #add.command_title
+						end
+					end
+				end
+			end
+		end
+	end
+	return len 
+end
+
 local function config()
 	local ok, actions = pcall(require, "telescope.actions")
 	if not ok then
@@ -18,6 +53,20 @@ local function config()
 			layout_strategy = "horizontal",
 			layout_config = {
 				width = 0.75,
+				-- width = function(ctx, cols)
+				-- 	local max = math.floor(cols * 0.75)
+				-- 	if use_small_dialog(ctx) then
+				-- 		return math.min(max, 80)
+				-- 	end
+				-- 	return max
+				-- end,
+				-- height = function(ctx, rows)
+				-- 	local max = math.floor(rows * 0.75)
+				-- 	if use_small_dialog(ctx) then
+				-- 		return math.min(max, 30)
+				-- 	end
+				-- 	return max
+				-- end,
 				preview_cutoff = 120,
 				horizontal = {
 					preview_width = function(_, cols, _)
@@ -89,6 +138,22 @@ local function config()
 				url_open_command = "open",
 				url_open_plugin = nil,
 				full_path = true,
+			},
+			["ui-select"] = {
+				require("telescope.themes").get_cursor({
+					layout_config = {
+						width = function(ctx, cols)
+							local w = get_desired_width(ctx)
+							return math.min(w, math.floor(cols * 0.75))
+						end,
+						height = 16,
+					},
+					borderchars = {
+						prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+						results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+						preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+					},
+				}),
 			},
 		},
 	}
