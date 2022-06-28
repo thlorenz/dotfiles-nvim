@@ -65,6 +65,12 @@ packer.startup(function(use)
 		end,
 		requires = { "nvim-telescope/telescope.nvim" },
 	})
+	-- ui-select
+	-- https://github.com/nvim-telescope/telescope-ui-select.nvim
+	use({
+		"nvim-telescope/telescope-ui-select.nvim",
+		requires = { "nvim-telescope/telescope.nvim" },
+	})
 	-- github
 	-- https://github.com/nvim-telescope/telescope-github.nvim
 	use({
@@ -219,9 +225,8 @@ packer.startup(function(use)
 		opt = true,
 		event = "BufReadPre",
 		module = { "dap" },
-		wants = { "nvim-dap-virtual-text", "DAPInstall.nvim", "nvim-dap-ui" },
+		wants = { "nvim-dap-virtual-text", "nvim-dap-ui" },
 		requires = {
-			"Pocco81/DAPInstall.nvim",
 			"theHamsta/nvim-dap-virtual-text",
 			"rcarriga/nvim-dap-ui",
 			{ "jbyuki/one-small-step-for-vimkind", module = "osv" },

@@ -138,6 +138,7 @@ function M.setup()
 		telescope.load_extension("dash")
 		telescope.load_extension("bookmarks")
 		telescope.load_extension("gh")
+		telescope.load_extension("ui-select")
 	end)
 end
 M.setup()
