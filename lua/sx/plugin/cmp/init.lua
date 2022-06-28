@@ -55,28 +55,22 @@ function M.setup()
 	local status_ok, cmp = pcall(require, "cmp")
 	if not status_ok then
 		Log:error("Failed to load cmp")
-	end
-
-	local status_ok, ultisnips = pcall(require, "ultisnips")
-	if not status_ok then
-		Log:error("Failed to load ultisnips")
+		return
 	end
 
 	local conf = config(cmp)
 	cmp.setup(conf)
 
-	-- lspconfig
+	-- lspconfig + typescript
 	local status_ok, lspconfig = pcall(require, "lspconfig")
 	if not status_ok then
 		Log:error("Failed to load lspconfig")
+		return
 	end
 
 	lspconfig.tsserver.setup({
 		capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
 	})
-
-	-- ultisnips
-	vim.cmd([[ let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips" ]])
 
 	-- keymaps
 	vim.cmd([[
@@ -85,6 +79,9 @@ function M.setup()
     nnoremap <leader>. :lua vim.lsp.buf.code_action()<CR>
     nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
   ]])
+
+	-- ultisnips
+	vim.cmd([[ let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips" ]])
 end
 
 return M
