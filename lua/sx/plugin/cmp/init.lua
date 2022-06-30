@@ -75,9 +75,8 @@ function M.setup()
 	-- keymaps
 	vim.cmd([[
     nnoremap gd :lua vim.lsp.buf.definition()<CR>
+    nnoremap gr :lua vim.lsp.buf.references()<CR>
     nnoremap K :lua vim.lsp.buf.hover()<CR>
-    nnoremap <leader>. :lua vim.lsp.buf.code_action()<CR>
-    nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
   ]])
 
 	-- ultisnips
