@@ -7,10 +7,12 @@ M.setup = function()
 		return
 	end
 
+	-- https://github.com/mhartington/formatter.nvim
 	local status_ok, formatter = pcall(require, "formatter")
 	if not status_ok then
 		Log:error("Failed to load formatter")
 	end
+	local filetypes = require("formatter.filetypes")
 
 	local function prettierd()
 		-- npm install -g @fsouza/prettierd
@@ -34,32 +36,25 @@ M.setup = function()
 	formatter.setup({
 		filetype = {
 			-- Prettier for TS/JS + JSON
-			typescript = prettierd,
-			typescriptreact = prettierd,
-			javascript = prettierd,
-			javascriptreact = prettierd,
-			json = prettierd,
-			lua = {
-				-- cargo install stylua
-				function()
-					return {
-						exe = "stylua",
-						args = {
-							"--search-parent-directories",
-							"--stdin-filepath",
-							vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
-							"--",
-							"-",
-						},
-						stdin = true,
-					}
-				end,
-			},
-			["*"] = {
-				function()
-					vim.cmd([[ %s/\s\+$//e ]])
-				end,
-			},
+			typescript = filetypes.typescript.prettierd,
+			typescriptreact = filetypes.typescript.prettierd,
+			javascript = filetypes.javascript.prettierd,
+			javascriptreact = filetypes.javascript.prettierd,
+			json = filetypes.json.prettierd,
+
+			-- cargo install taplo-cli --locked
+			toml = filetypes.toml.taplo,
+
+			-- brew install libyaml
+			-- python -m pip install pyyaml
+			yaml = filetypes.yaml.pyaml,
+
+			-- cargo install stylua
+			lua = filetypes.lua.stylua,
+
+			rust = filetypes.rust.rustfmt,
+
+			["*"] = filetypes.any,
 		},
 	})
 
