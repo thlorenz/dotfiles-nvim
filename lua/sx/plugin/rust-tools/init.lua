@@ -76,13 +76,14 @@ M.setup = function()
 						methodReferences = true,
 					},
 					cargo = {
-						allFeatures = true,
+						features = "all",
 					},
 					checkOnSave = {
-						allFeatures = true,
-						allTargets = true,
+						features = "all",
 						command = "clippy",
-						extraArgs = {},
+						-- The below ensures that we don't get unused warnings for our test code
+						allTargets = false,
+						extraArgs = { "--tests" },
 					},
 				},
 			},
