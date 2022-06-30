@@ -147,7 +147,7 @@ local function config()
 					"Github Repo View",
 				},
 				O = {
-					"<cmd>Dispatch! gh browse --branch $(git branch --show-current) %)<CR>",
+					"<cmd>Dispatch! gh browse --branch $(git branch --show-current) %<CR>",
 					"Github Repo View File",
 				},
 				b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
