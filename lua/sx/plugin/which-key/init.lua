@@ -43,7 +43,16 @@ local function config()
 				spacing = 3, -- spacing between columns
 				align = "left", -- align columns left, center or right
 			},
-			hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
+			hidden = {
+				"<silent>",
+				"<cmd>",
+				"<Cmd>",
+				"<CR>",
+				"call",
+				"lua",
+				"^:",
+				"^ ",
+			}, -- hide mapping boilerplate
 			ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
 			show_help = true, -- show help message on the command line when the popup is visible
 			triggers = "auto", -- automatically setup triggers
@@ -78,7 +87,10 @@ local function config()
 		-- NOTE: Prefer using : over <cmd> as the latter avoids going back in normal-mode.
 		-- see https://neovim.io/doc/user/map.html#:map-cmd
 		vmappings = {
-			["/"] = { "<ESC><CMD>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", "Comment" },
+			["/"] = {
+				"<ESC><CMD>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>",
+				"Comment",
+			},
 		},
 
 		mappings = {
@@ -105,7 +117,10 @@ local function config()
 				name = "Search",
 				b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
 				h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-				H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
+				H = {
+					"<cmd>Telescope highlights<cr>",
+					"Find highlight groups",
+				},
 				m = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
 				r = { "<cmd>Telescope registers<cr>", "Registers" },
 				s = { "<cmd>Telescope live_grep<cr>", "Text" },
@@ -113,7 +128,11 @@ local function config()
 				k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 				c = { "<cmd>Telescope commands<cr>", "Commands" },
 				o = { "<cmd>Telescope lsp_document_symbols<cr>", "Symbols" },
-				O = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
+				O = {
+					"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+					"Workspace Symbols",
+				},
+				["!"] = { "<cmd>SSave!<CR>", "Save Session" },
 
 				C = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
 				p = {
@@ -122,17 +141,46 @@ local function config()
 				},
 			},
 
+			o = {
+				name = "Open",
+				p = { "<cmd>Telescope playlist<cr>", "Playlist" },
+			},
+
 			g = {
 				name = "Git",
-				j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-				k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-				L = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-				l = { "<cmd>call TmuxWindowCmd('fugitive', 'FORCE_COLOR=0 nvim -c :Gclog')<cr>", "Git log" },
-				P = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
+				j = {
+					"<cmd>lua require 'gitsigns'.next_hunk()<cr>",
+					"Next Hunk",
+				},
+				k = {
+					"<cmd>lua require 'gitsigns'.prev_hunk()<cr>",
+					"Prev Hunk",
+				},
+				L = {
+					"<cmd>lua require 'gitsigns'.blame_line()<cr>",
+					"Blame",
+				},
+				l = {
+					"<cmd>call TmuxWindowCmd('fugitive', 'FORCE_COLOR=0 nvim -c :Gclog')<cr>",
+					"Git log",
+				},
+				P = {
+					"<cmd>lua require 'gitsigns'.preview_hunk()<cr>",
+					"Preview Hunk",
+				},
 				p = { "<cmd>Git push<CR>", "Git push" },
-				r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-				R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-				S = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+				r = {
+					"<cmd>lua require 'gitsigns'.reset_hunk()<cr>",
+					"Reset Hunk",
+				},
+				R = {
+					"<cmd>lua require 'gitsigns'.reset_buffer()<cr>",
+					"Reset Buffer",
+				},
+				S = {
+					"<cmd>lua require 'gitsigns'.stage_hunk()<cr>",
+					"Stage Hunk",
+				},
 				s = {
 					"<cmd>call TmuxWindowCmd('fugitive', 'FORCE_COLOR=0 nvim -c :Git -c 20wincmd_')<CR>",
 					"Git status",
@@ -163,8 +211,14 @@ local function config()
 
 				h = {
 					name = "github",
-					i = { require("telescope").extensions.gh.issues, "Issues" },
-					p = { require("telescope").extensions.gh.pull_request, "Pull Request" },
+					i = {
+						require("telescope").extensions.gh.issues,
+						"Issues",
+					},
+					p = {
+						require("telescope").extensions.gh.pull_request,
+						"Pull Request",
+					},
 					g = { require("telescope").extensions.gh.gist, "Gist" },
 					r = { require("telescope").extensions.gh.run, "Run" },
 				},
@@ -175,8 +229,14 @@ local function config()
 			r = { vim.lsp.buf.rename, "Rename" },
 			e = {
 				name = "LSP",
-				d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_dropdown<cr>", "Buffer Diagnostics" },
-				w = { "<cmd>Telescope diagnostics theme=get_dropdown<cr>", "Diagnostics" },
+				d = {
+					"<cmd>Telescope diagnostics bufnr=0 theme=get_dropdown<cr>",
+					"Buffer Diagnostics",
+				},
+				w = {
+					"<cmd>Telescope diagnostics theme=get_dropdown<cr>",
+					"Diagnostics",
+				},
 				i = { "<cmd>LspInfo<cr>", "Info" },
 				j = {
 					vim.diagnostic.goto_next,
@@ -230,7 +290,10 @@ local function config()
 			d = {
 				name = "Debug",
 				-- breakpoints
-				t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+				t = {
+					"<cmd>lua require'dap'.toggle_breakpoint()<cr>",
+					"Toggle Breakpoint",
+				},
 				C = {
 					"<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>",
 					"Conditional Breakpoint",
@@ -245,10 +308,16 @@ local function config()
 				i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
 				u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
 				c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
-				R = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run to Cursor" },
+				R = {
+					"<cmd>lua require'dap'.run_to_cursor()<cr>",
+					"Run to Cursor",
+				},
 
 				-- eval
-				E = { "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", "Evaluate Input" },
+				E = {
+					"<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>",
+					"Evaluate Input",
+				},
 				e = { "<cmd>lua require'dapui'.eval()<cr>", "Evaluate" },
 
 				-- session
@@ -262,11 +331,20 @@ local function config()
 
 				-- ui
 				U = { "<cmd>lua require'dapui'.toggle()<cr>", "Toggle UI" },
-				r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
+				r = {
+					"<cmd>lua require'dap'.repl.toggle()<cr>",
+					"Toggle Repl",
+				},
 				o = { "<cmd>lua require'dapui'.open()<cr>", "UI" },
 				q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
-				h = { "<cmd>lua require'dap.ui.widgets'.hover()<cr>", "Hover Variables" },
-				S = { "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", "Scopes" },
+				h = {
+					"<cmd>lua require'dap.ui.widgets'.hover()<cr>",
+					"Hover Variables",
+				},
+				S = {
+					"<cmd>lua require'dap.ui.widgets'.scopes()<cr>",
+					"Scopes",
+				},
 			},
 		},
 	}
