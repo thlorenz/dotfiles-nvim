@@ -77,7 +77,9 @@ M.load_default_options = function()
 
 	o.wildmenu = true
 	o.wildmode = "list:longest"
-	o.wildignore:append("*/src-old/*,*/dist/*,*/docs/*,*/.git/*,*/.svn/*,*/node_modules/*,*.o,*.obj,*.hi,*.sqlite3")
+	o.wildignore:append(
+		"*/src-old/*,*/dist/*,*/docs/*,*/.git/*,*/.svn/*,*/node_modules/*,*.o,*.obj,*.hi,*.sqlite3"
+	)
 
 	o.shortmess:append("a")
 	o.shortmess:append("t") --	truncate file message
@@ -99,7 +101,7 @@ M.load_default_options = function()
 
 
     au BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
-    au FileType rust nmap <silent><leader>bb :wa \| Make check --all-targets --all-features<CR>
+    au FileType rust nmap <silent><leader>bb :wa \| Make check --tests<CR>
     au FileType rust nmap <silent><leader>bB :wa \| Make build-bpf<CR>
 
     au FileType lua noremap tr :wa \| luafile %<CR>
