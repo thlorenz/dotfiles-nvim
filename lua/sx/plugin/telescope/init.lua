@@ -5,7 +5,9 @@ local M = {}
 local function use_small_dialog(ctx)
 	if ctx.finder and ctx.finder.results and ctx.finder.results[1] then
 		local fst = ctx.finder.results[1]
-		local client_name = fst.value and fst.value.add and fst.value.add.client_name
+		local client_name = fst.value
+			and fst.value.add
+			and fst.value.add.client_name
 		return client_name == "tsserver"
 	end
 	return false
@@ -33,8 +35,10 @@ local function get_desired_width(ctx)
 				end
 			end
 		end
+	else
+		return 1000000
 	end
-	return len 
+	return len
 end
 
 local function config()
@@ -97,20 +101,31 @@ local function config()
 					["<C-c>"] = actions.close,
 					["<C-j>"] = actions.cycle_history_next,
 					["<C-k>"] = actions.cycle_history_prev,
-					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+					["<C-q>"] = actions.smart_send_to_qflist
+						+ actions.open_qflist,
 					["<CR>"] = actions.select_default,
 				},
 				n = {
 					["<C-n>"] = actions.move_selection_next,
 					["<C-p>"] = actions.move_selection_previous,
-					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+					["<C-q>"] = actions.smart_send_to_qflist
+						+ actions.open_qflist,
 				},
 			},
 			file_ignore_patterns = {},
 			path_display = { shorten = 5 },
 			winblend = 0,
 			border = {},
-			borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+			borderchars = {
+				"─",
+				"│",
+				"─",
+				"│",
+				"╭",
+				"╮",
+				"╯",
+				"╰",
+			},
 			color_devicons = true,
 			set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
 			pickers = {
@@ -139,6 +154,17 @@ local function config()
 				url_open_plugin = nil,
 				full_path = true,
 			},
+			playlist = {
+				paths = {
+					Jazz = "/Volumes/d/dotfiles/bash/scripts/playlists/jazz-all.pls",
+					DI = "/Volumes/d/dotfiles/bash/scripts/playlists/di-all.pls",
+					Rock = "/Volumes/d/dotfiles/bash/scripts/playlists/rock-radio-all.pls",
+					Misc = "/Volumes/d/dotfiles/bash/scripts/playlists/radio-tunes-all.pls",
+					Classical = "/Volumes/d/dotfiles/bash/scripts/playlists/classical-all.pls",
+					Zen = "/Volumes/d/dotfiles/bash/scripts/playlists/zen-radio-all.pls",
+					CC0 = "/Volumes/d/dotfiles/bash/scripts/playlists/cc0-rfm-ncm.pls",
+				},
+			},
 			["ui-select"] = {
 				require("telescope.themes").get_cursor({
 					layout_config = {
@@ -149,9 +175,36 @@ local function config()
 						height = 16,
 					},
 					borderchars = {
-						prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
-						results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
-						preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+						prompt = {
+							"─",
+							"│",
+							" ",
+							"│",
+							"╭",
+							"╮",
+							"│",
+							"│",
+						},
+						results = {
+							"─",
+							"│",
+							"─",
+							"│",
+							"├",
+							"┤",
+							"╯",
+							"╰",
+						},
+						preview = {
+							"─",
+							"│",
+							"─",
+							"│",
+							"╭",
+							"╮",
+							"╯",
+							"╰",
+						},
 					},
 				}),
 			},
@@ -204,8 +257,8 @@ function M.setup()
 		telescope.load_extension("bookmarks")
 		telescope.load_extension("gh")
 		telescope.load_extension("ui-select")
+		telescope.load_extension("playlist")
 	end)
 end
-M.setup()
 
 return M

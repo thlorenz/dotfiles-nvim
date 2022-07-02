@@ -79,6 +79,7 @@ packer.startup(function(use)
 			"nvim-telescope/telescope.nvim",
 		},
 	})
+	use("$HOME/dev/lua/nvim-plugins/telescope/telescope-playlist")
 	-- dash
 	use({
 		"mrjones2014/dash.nvim",
@@ -132,7 +133,11 @@ packer.startup(function(use)
 
 	-- Make and Quickfix
 	require("sx.plugin.dispatch").source()
-	use({ "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } })
+	use({
+		"tpope/vim-dispatch",
+		opt = true,
+		cmd = { "Dispatch", "Make", "Focus", "Start" },
+	})
 
 	--
 	-- Integration with External Tools
@@ -179,6 +184,7 @@ packer.startup(function(use)
 	})
 
 	-- LSP/CMP
+	require("sx.plugin.lsp").source()
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
