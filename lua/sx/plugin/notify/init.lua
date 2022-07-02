@@ -104,7 +104,7 @@ local function config()
 
 	return {
 		---@usage Animation style one of { "fade", "slide", "fade_in_slide_out", "static" }
-		stages = fade,
+		stages = slide,
 
 		---@usage Function called when a new window is opened, use for changing win settings/config
 		on_open = nil,
