@@ -168,10 +168,11 @@ local function config()
 			["ui-select"] = {
 				require("telescope.themes").get_cursor({
 					layout_config = {
-						width = function(ctx, cols)
-							local w = get_desired_width(ctx)
-							return math.min(w, math.floor(cols * 0.75))
-						end,
+						width = 200,
+						-- width = function(ctx, cols)
+						-- 	local w = get_desired_width(ctx)
+						-- 	return math.min(w, math.floor(cols * 0.75))
+						-- end,
 						height = 16,
 					},
 					borderchars = {
@@ -258,6 +259,7 @@ function M.setup()
 		telescope.load_extension("gh")
 		telescope.load_extension("ui-select")
 		telescope.load_extension("playlist")
+		telescope.load_extension("tmux")
 	end)
 end
 

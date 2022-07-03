@@ -111,6 +111,8 @@ local function config()
 				r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 				b = { "<cmd>Telescope bookmarks<cr>", "Bookmarks" },
 				s = { "<cmd>BrowserSearch<cr>", "Browser Search" },
+				w = { "<cmd>Telescope tmux sessions<cr>", "Tmux Sessions" },
+				W = { "<cmd>Telescope tmux windows<cr>", "Tmux Windows" },
 			},
 
 			s = {
@@ -138,6 +140,10 @@ local function config()
 				p = {
 					"<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
 					"Colorscheme with Preview",
+				},
+				t = {
+					"<cmd>Telescope tmux pane_contents<cr>",
+					"Tmux Pane Contents",
 				},
 			},
 
