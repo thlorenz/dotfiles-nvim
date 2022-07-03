@@ -89,7 +89,6 @@ M.load_default_options = function()
 
 	-- TODO: rewrite as non-vim script
 	vim.cmd([[
-    au FileType rust noremap tr :wa \| ! cargo run<CR>
     au FileType json set tabstop=2 softtabstop=2 shiftwidth=2 tw=120 fo=cqt wm=0
 
 
@@ -101,6 +100,9 @@ M.load_default_options = function()
 
 
     au BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
+    au FileType rust noremap tr :wa \| ! cargo run<CR>
+    au FileType rust noremap tt :wa \| ! cargo test --tests -- --nocapture<CR>
+    au FileType rust nmap <silent><leader>br :RustRunnables<CR>
     au FileType rust nmap <silent><leader>bb :wa \| Make check --tests<CR>
     au FileType rust nmap <silent><leader>bB :wa \| Make build-bpf<CR>
 
