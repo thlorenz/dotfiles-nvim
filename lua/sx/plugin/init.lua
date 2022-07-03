@@ -29,6 +29,8 @@ packer.startup(function(use)
 		end,
 	})
 
+	use({ "camgraff/telescope-tmux.nvim" })
+
 	use({
 		"kyazdani42/nvim-tree.lua",
 		requires = {
@@ -224,7 +226,7 @@ packer.startup(function(use)
 	})
 
 	--
-	-- Debugging
+	-- Debugging/Testing
 	--
 	use({
 		"mfussenegger/nvim-dap",
@@ -241,6 +243,9 @@ packer.startup(function(use)
 			require("sx.plugin.dap").setup()
 		end,
 	})
+
+	require("sx.plugin.test").source()
+	use({ "vim-test/vim-test" })
 
 	--
 	-- Language Support
