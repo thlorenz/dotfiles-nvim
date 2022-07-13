@@ -45,7 +45,9 @@ M.setup = function()
 		-- these override the defaults set by rust-tools.nvim
 		-- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
 		server = {
-			cmd = { "/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer" },
+			cmd = {
+				"/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer",
+			},
 			-- on_attach is a callback called when the language server attachs to the buffer
 			-- on_attach = on_attach,
 			settings = {
@@ -66,6 +68,7 @@ M.setup = function()
 						disabled = {
 							"missing-unsafe",
 							"inactive-code",
+							"unresolved-proc-macro",
 						},
 					},
 					procMacro = {
