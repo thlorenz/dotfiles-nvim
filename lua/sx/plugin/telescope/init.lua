@@ -168,12 +168,12 @@ local function config()
 			["ui-select"] = {
 				require("telescope.themes").get_cursor({
 					layout_config = {
-						width = 200,
+						-- width = 200,
 						-- width = function(ctx, cols)
 						-- 	local w = get_desired_width(ctx)
 						-- 	return math.min(w, math.floor(cols * 0.75))
 						-- end,
-						height = 16,
+						height = 20,
 					},
 					borderchars = {
 						prompt = {
