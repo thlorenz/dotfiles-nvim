@@ -101,7 +101,7 @@ packer.startup(function(use)
 	-- Tools
 	--
 
-	-- Git
+	-- Git/Github
 
 	use({
 		"tpope/vim-fugitive",
@@ -151,6 +151,16 @@ packer.startup(function(use)
 		config = function()
 			require("sx.plugin.browser-search").setup()
 		end,
+	})
+
+	-- Markdown Preview
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = "cd app && npm install",
+		setup = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
 	})
 
 	--
