@@ -52,7 +52,7 @@ local function config()
 			-- QuickFix
 			["]q"] = ":cnext<CR>",
 			["[q"] = ":cprev<CR>",
-			["cc"] = ":call QuickFixToggle()<CR>",
+			["cc"] = ":cclose<CR>",
 
 			["]g"] = vim.diagnostic.goto_next,
 
@@ -63,6 +63,11 @@ local function config()
 			["<S-h>"] = function()
 				vim.cmd("m .-2<CR>==")
 			end,
+
+			-- center cursor when jumping down even if reaching file end
+			["<C-d>"] = "<C-d>zz",
+			["<C-o>"] = "<C-o>zz",
+			["G"] = "Gzz",
 		},
 
 		term_mode = {
@@ -80,8 +85,14 @@ local function config()
 		command_mode = {
 			-- navigate tab completion with <c-j> and <c-k>
 			-- runs conditionally
-			["<C-j>"] = { 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true } },
-			["<C-k>"] = { 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true } },
+			["<C-j>"] = {
+				'pumvisible() ? "\\<C-n>" : "\\<C-j>"',
+				{ expr = true, noremap = true },
+			},
+			["<C-k>"] = {
+				'pumvisible() ? "\\<C-p>" : "\\<C-k>"',
+				{ expr = true, noremap = true },
+			},
 		},
 	}
 
