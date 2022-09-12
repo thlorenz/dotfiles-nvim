@@ -3,7 +3,9 @@ local Log = require("sx.core.log")
 
 M.setup = function()
 	if #vim.api.nvim_list_uis() == 0 then
-		Log:debug("headless mode detected, skipping running setup for formatter")
+		Log:debug(
+			"headless mode detected, skipping running setup for formatter"
+		)
 		return
 	end
 
@@ -27,7 +29,10 @@ M.setup = function()
 	local function prettier()
 		return {
 			exe = "prettierd",
-			args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)) },
+			args = {
+				"--stdin-filepath",
+				vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
+			},
 			stdin = true,
 			try_node_modules = true,
 		}
@@ -47,7 +52,9 @@ M.setup = function()
 
 			-- brew install libyaml
 			-- python -m pip install pyyaml
-			yaml = filetypes.yaml.pyaml,
+			-- Disabled since it screws up docker-compose files (removing ' from strings)
+			-- also it reorders alphabetically and I don't know how to turn that off
+			-- yaml = filetypes.yaml.pyaml,
 
 			-- cargo install stylua
 			lua = filetypes.lua.stylua,
