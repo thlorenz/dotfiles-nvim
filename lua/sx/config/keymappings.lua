@@ -65,8 +65,6 @@ local function config()
 			end,
 
 			-- center cursor when jumping down even if reaching file end
-			["<C-d>"] = "<C-d>zz",
-			["<C-o>"] = "<C-o>zz",
 			["G"] = "Gzz",
 		},
 
