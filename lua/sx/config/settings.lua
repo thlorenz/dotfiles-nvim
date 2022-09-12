@@ -41,8 +41,8 @@ M.load_default_options = function()
 	o.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program) it is not allowed to be edited
 	o.swapfile = false -- creates a swapfile
 
-	o.autoindent = false
-	o.smartindent = false
+	o.autoindent = true
+	o.smartindent = true
 	o.cindent = false
 	o.copyindent = false
 
@@ -103,9 +103,12 @@ M.load_default_options = function()
     au FileType rust noremap tr :wa \| ! cargo run<CR>
     au FileType rust noremap tt :wa \| ! cargo test --tests -- --nocapture<CR>
     au FileType rust nmap <silent><leader>br :RustRunnables<CR>
-    au FileType rust nmap <silent><leader>bb :wa \| Make check --tests<CR>
+    au FileType rust nmap <silent><leader>bc :wa \| Make check --tests<CR>
+    au FileType rust nmap <silent><leader>bb :wa \| Make build --tests<CR>
     au FileType rust nmap <silent><leader>bB :wa \| Make build-bpf<CR>
 
+    au BufRead,BufNewFile *.lua set makeprg=luacheck
+    au FileType lua noremap <silent><leader>bb :Make . --codes --formatter visual_studio --no-color<CR>
     au FileType lua noremap tr :wa \| luafile %<CR>
 
     au FileType dart noremap <leader>m :wa \| !dart %<CR>
@@ -115,12 +118,8 @@ M.load_default_options = function()
 
     au BufRead,BufNewFile *.md setfiletype markdown
 
-    au FileType python set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
     au FileType make set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
-    au FileType javascript set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-    au FileType dart set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-    au FileType css set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-    au FileType yaml set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+    au FileType javascript,lua,dart,python,css,yaml,typescript set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
     au FileType markdown set tabstop=2 softtabstop=2 shiftwidth=2 tw=95 fo=cqt wm=0 conceallevel=0 concealcursor=nvc
 
     autocmd BufReadPost *
