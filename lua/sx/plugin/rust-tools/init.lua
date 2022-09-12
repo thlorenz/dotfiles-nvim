@@ -46,7 +46,10 @@ M.setup = function()
 		-- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
 		server = {
 			cmd = {
-				"/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer",
+				-- nightly rustup component add rust-analyzer-preview
+				-- "/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer",
+				-- brew install rust-analyzer
+				"/usr/local/bin/rust-analyzer",
 			},
 			-- on_attach is a callback called when the language server attachs to the buffer
 			-- on_attach = on_attach,
@@ -83,7 +86,9 @@ M.setup = function()
 					},
 					checkOnSave = {
 						features = "all",
-						command = "clippy",
+						command = "check",
+						-- Using clippy creates tons of clippy processes and slows everything down
+						-- command = "clippy",
 						-- The below ensures that we don't get unused warnings for our test code
 						allTargets = false,
 						extraArgs = { "--tests" },
