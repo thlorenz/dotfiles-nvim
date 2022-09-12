@@ -29,6 +29,8 @@ packer.startup(function(use)
 		end,
 	})
 
+	-- use({ "christoomey/vim-tmux-runner" })
+
 	use({ "camgraff/telescope-tmux.nvim" })
 
 	use({
@@ -82,6 +84,13 @@ packer.startup(function(use)
 		},
 	})
 	use("$HOME/dev/lua/nvim-plugins/telescope/telescope-playlist")
+	use({
+		"$HOME/dev/lua/nvim-plugins/tmuxrun/tmuxrun.nvim",
+		config = function()
+			require("sx.plugin.tmuxrun").setup()
+		end,
+	})
+
 	-- dash
 	use({
 		"mrjones2014/dash.nvim",
@@ -123,7 +132,6 @@ packer.startup(function(use)
 		},
 		ft = { "fugitive" },
 	})
-	use({ "skanehira/gh.vim", opt = true, cmd = { "gh" } })
 
 	use({
 		"lewis6991/gitsigns.nvim",
@@ -162,6 +170,9 @@ packer.startup(function(use)
 		end,
 		ft = { "markdown" },
 	})
+
+	-- Wakatime
+	use("wakatime/vim-wakatime")
 
 	--
 	-- Shortcuts
@@ -202,6 +213,7 @@ packer.startup(function(use)
 		requires = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
+			"hrsh7th/cmp-path",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-buffer",
 			"quangnguyen30192/cmp-nvim-ultisnips",
@@ -255,7 +267,8 @@ packer.startup(function(use)
 	})
 
 	require("sx.plugin.test").source()
-	use({ "vim-test/vim-test" })
+	-- use({ "vim-test/vim-test" }) -- , requires = { "christoomey/vim-tmux-runner" } })
+	use("$HOME/dev/lua/nvim-plugins/tmuxrun/vim-test/")
 
 	--
 	-- Language Support

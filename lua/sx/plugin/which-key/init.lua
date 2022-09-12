@@ -94,6 +94,37 @@ local function config()
 		},
 
 		mappings = {
+			b = {
+				name = "Runners/Tmux",
+				c = {
+					"<cmd>TmuxCtrlC<cr>",
+					"Tmux: send Ctrl-C to selected pane",
+				},
+				d = {
+					"<cmd>TmuxCtrlD<cr>",
+					"Tmux: send Ctrl-D to selected pane to close it",
+				},
+				l = {
+					"<cmd>TmuxRepeatCommand<cr>",
+					"Tmux: repeat last command",
+				},
+				u = { "<cmd>TmuxUp<cr>", "Tmux: send ⬆ ⏎" },
+				z = {
+					"<cmd>TmuxZoom<cr>",
+					"Tmux: toogle zoom on selected pane",
+				},
+				f = {
+					"<cmd>TmuxFace<cr>",
+					"Tmux: open terminal with selected session",
+				},
+				g = {
+					"<cmd>TmuxFace!<cr>",
+					"Tmux: open terminal with selected pane zoomed",
+				},
+			},
+			c = {
+				r = "<cmd>LspRestart<cr>",
+			},
 			p = {
 				name = "Packer",
 				c = { "<cmd>PackerCompile<cr>", "Compile" },
@@ -292,6 +323,12 @@ local function config()
 				end,
 				"Explorer",
 			},
+			N = {
+				function()
+					vim.cmd("NvimTreeFindFile")
+				end,
+				"Explorer",
+			},
 
 			d = {
 				name = "Debug",
@@ -379,5 +416,7 @@ M.setup = function()
 	which_key.register(mappings, opts)
 	which_key.register(vmappings, vopts)
 end
+
+M.setup()
 
 return M
