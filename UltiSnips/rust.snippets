@@ -24,6 +24,14 @@ snippet epr "eprintln! debug"
 eprintln!("{:#?}", ${1});${0}
 endsnippet
 
+snippet inf "info! debug"
+info!("{:#?}", ${1});${0}
+endsnippet
+
+snippet deb "debug! debug"
+debug!("{:#?}", ${1});${0}
+endsnippet
+
 # Custom Imports
 snippet syne "syn ParseError and ParseResult"
 use syn::{Error as ParseError, Result as ParseResult};
