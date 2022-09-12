@@ -30,10 +30,10 @@ local function config(cmp)
 			end,
 		},
 		sources = {
+			{ name = "path" },
 			{ name = "ultisnips" },
 			{ name = "nvim_lua" },
 			{ name = "nvim_lsp" },
-			{ name = "path" },
 			{ name = "buffer", keyword_length = 5 },
 			{ name = "calc" },
 			{ name = "treesitter" },
