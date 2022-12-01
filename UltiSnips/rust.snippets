@@ -1,7 +1,7 @@
 ## Rust Snippets
 
 # Commenting
-snippet todo "TODO comment"
+snippet tod "TODO comment"
 // TODO(thlorenz): $0
 endsnippet
 
@@ -11,6 +11,36 @@ snippet tst "Unit test function"
 fn ${1:function_name}() {
 	${0}
 }
+endsnippet
+
+snippet modtest "Unit test module"
+#[cfg(test)]
+mod tests {
+	use super::*;
+	${0}
+}
+endsnippet
+
+# Derives
+
+snippet derh "derive Debug, Clone, PartialEq, Eq, Hash"
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+endsnippet
+
+snippet dere "derive Debug, Clone, PartialEq, Eq"
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+endsnippet
+
+snippet derc "derive Clone"
+#[derive(Clone)]
+endsnippet
+
+snippet derd "derive Debug"
+#[derive(Debug)]
+endsnippet
+
+snippet derdc "derive Debug, Clone"
+#[derive(Debug, Clone)]
 endsnippet
 
 snippet hdr "header comment"
