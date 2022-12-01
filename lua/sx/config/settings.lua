@@ -91,7 +91,6 @@ M.load_default_options = function()
 	vim.cmd([[
     au FileType json set tabstop=2 softtabstop=2 shiftwidth=2 tw=120 fo=cqt wm=0
 
-
     au BufRead,BufNewFile package.json,*.ts,*.js set makeprg=yarn
     au FileType javascript noremap tr :wa \| ! DEBUG=* node --trace-deprecation %<CR>
     au FileType typescript noremap tr :wa \| ! esr %<CR>

@@ -30,6 +30,7 @@ local function config(cmp)
 			end,
 		},
 		sources = {
+			-- { name = "copilot" },
 			{ name = "path" },
 			{ name = "ultisnips" },
 			{ name = "nvim_lua" },
@@ -69,9 +70,18 @@ function M.setup()
 	end
 
 	lspconfig.tsserver.setup({
-		capabilities = require("cmp_nvim_lsp").update_capabilities(
+		capabilities = require("cmp_nvim_lsp").default_capabilities(
 			vim.lsp.protocol.make_client_capabilities()
 		),
+		init_options = {
+			importModuleSpecifier = "relative",
+		},
+		initOptions = {
+			importModuleSpecifier = "relative",
+		},
+		preferences = {
+			importModuleSpecifier = "relative",
+		},
 	})
 
 	-- keymaps

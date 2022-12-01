@@ -45,6 +45,7 @@ M.setup = function()
 		-- these override the defaults set by rust-tools.nvim
 		-- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
 		server = {
+			standalone = false,
 			cmd = {
 				-- nightly rustup component add rust-analyzer-preview
 				-- "/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer",
@@ -85,13 +86,30 @@ M.setup = function()
 						features = "all",
 					},
 					checkOnSave = {
-						features = "all",
-						command = "check",
-						-- Using clippy creates tons of clippy processes and slows everything down
+						enable = true,
+						-- command = "check",
 						-- command = "clippy",
-						-- The below ensures that we don't get unused warnings for our test code
+						-- extraArgs = {
+						-- 	"--target-dir",
+						-- 	"/tmp/rust-analyzer-check",
+						-- 	"--tests",
+						-- },
 						allTargets = false,
-						extraArgs = { "--tests" },
+						features = "all",
+						overrideCommand = {
+							"cargo",
+							"clippy",
+							"--tests",
+							"--all-features",
+							"--message-format=json",
+						},
+						-- overrideCommand = { "cargo", "check", "--tests" },
+						-- Using clippy creates tons of clippy processes and slows everything down
+						--overrideCommand = { "cargo", "clippy", "--tests" },
+						-- command = "clippy",
+						-- extraArgs = { "--tests" },
+						-- The below ensures that we don't get unused warnings for our test code
+						-- allTargets = false,
 					},
 				},
 			},

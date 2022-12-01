@@ -21,14 +21,6 @@ local mode_adapters = {
 	command_mode = "c",
 }
 
----@class Keys
----@field insert_mode table
----@field normal_mode table
----@field terminal_mode table
----@field visual_mode table
----@field visual_block_mode table
----@field command_mode table
-
 local function config()
 	local defaults = {
 		insert_mode = {
@@ -55,6 +47,7 @@ local function config()
 			["cc"] = ":cclose<CR>",
 
 			["]g"] = vim.diagnostic.goto_next,
+			["[g"] = vim.diagnostic.goto_prev,
 
 			-- Move lines up and down with H and L
 			["<S-l>"] = function()

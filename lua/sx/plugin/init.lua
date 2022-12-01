@@ -28,8 +28,15 @@ packer.startup(function(use)
 			})
 		end,
 	})
-
 	-- use({ "christoomey/vim-tmux-runner" })
+
+	-- Windows
+	-- use({
+	-- 	"mrjones2014/smart-splits.nvim",
+	-- 	config = function()
+	-- 		require("sx.plugin.smart-splits").setup()
+	-- 	end,
+	-- })
 
 	use({ "camgraff/telescope-tmux.nvim" })
 
@@ -128,6 +135,10 @@ packer.startup(function(use)
 			"GRemove",
 			"GRename",
 			"Glgrep",
+			"Gclog",
+			"GcLog",
+			"Gclog",
+			"Gllog",
 			"Gedit",
 		},
 		ft = { "fugitive" },
@@ -198,11 +209,127 @@ packer.startup(function(use)
 			require("sx.plugin.treesitter").setup()
 		end,
 	})
+	use({ "ron-rs/ron.vim" })
 
 	use({
 		"mhartington/formatter.nvim",
 		config = function()
 			require("sx.plugin.formatter").setup()
+		end,
+	})
+
+	use({
+		"godlygeek/tabular",
+	})
+
+	-- Substitution and renaming
+	use({ "tpope/vim-abolish" })
+
+	-- Surrounding
+	use({ "tpope/vim-surround" })
+
+	-- Copilot
+	vim.cmd([[
+    highlight CopilotSuggestion guifg=#304d9f ctermfg=8
+    let g:copilot_no_tab_map = v:true
+
+    imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+    imap <silent><script><nowait><expr> <C-\> copilot#Dismiss() . "\<C-\>"
+    imap <C-]> <Plug>(copilot-next)
+    imap <C-[> <Plug>(copilot-previous)
+  ]])
+	use({
+		"github/copilot.vim",
+		config = function()
+			vim.cmd([[
+        highlight CopilotSuggestion guifg=#304d9f ctermfg=8
+        imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+        let g:copilot_no_tab_map = v:true
+      ]])
+		end,
+	})
+
+	-- local copilot_cmd = [[
+	--   highlight CopilotSuggestion guifg=#304D9F ctermfg=8
+	--   imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+	--   let g:copilot_no_tab_map = v:true
+	-- ]]
+	-- vim.cmd(copilot_cmd)
+	-- use({
+	-- 	"github/copilot.vim",
+	-- 	config = function()
+	-- 		vim.cmd(copilot_cmd)
+	-- 	end,
+	-- })
+
+	-- vim.cmd([[
+	--   highlight CopilotSuggestion guifg=#3333DD ctermfg=8
+	-- ]])
+	-- use({
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		vim.schedule(function()
+	-- 			require("copilot").setup({
+	-- 				panel = {
+	-- 					enabled = true,
+	-- 					auto_refresh = false,
+	-- 					keymap = {
+	-- 						jump_prev = "[[",
+	-- 						jump_next = "]]",
+	-- 						accept = "<CR>",
+	-- 						refresh = "gr",
+	-- 						open = "<M-CR>",
+	-- 					},
+	-- 				},
+	-- 				suggestion = {
+	-- 					enabled = true,
+	-- 					auto_trigger = false,
+	-- 					debounce = 75,
+	-- 					keymap = {
+	-- 						accept = "<C-J>",
+	-- 						next = "<C-]>",
+	-- 						prev = "<C-[>",
+	-- 						dismiss = "<C-\\>",
+	-- 					},
+	-- 				},
+	-- 				filetypes = {
+	-- 					yaml = false,
+	-- 					markdown = false,
+	-- 					help = false,
+	-- 					gitcommit = false,
+	-- 					gitrebase = false,
+	-- 					hgcommit = false,
+	-- 					svn = false,
+	-- 					cvs = false,
+	-- 					["."] = false,
+	-- 				},
+	-- 				copilot_node_command = "node",
+	-- 				plugin_manager_path = vim.fn.stdpath("data")
+	-- 					.. "/site/pack/packer",
+	-- 				server_opts_overrides = {},
+	-- 			})
+	-- 		end)
+	-- 	end,
+	-- })
+
+	-- use({
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	after = { "copilot.lua" },
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup()
+	-- 	end,
+	-- })
+
+	-- Clipboard
+	use({
+		"AckslD/nvim-neoclip.lua",
+		requires = {
+			{ "nvim-telescope/telescope.nvim" },
+		},
+		config = function()
+			-- https://github.com/AckslD/nvim-neoclip.lua
+			require("neoclip").setup()
 		end,
 	})
 
@@ -223,6 +350,13 @@ packer.startup(function(use)
 			require("sx.plugin.cmp").setup()
 		end,
 	})
+	use({
+		"j-hui/fidget.nvim",
+		event = "BufReadPre",
+		config = function()
+			require("fidget").setup({})
+		end,
+	})
 
 	use({ "antoinemadec/FixCursorHold.nvim" }) -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 
@@ -233,6 +367,19 @@ packer.startup(function(use)
 		as = "challenger_deep",
 		config = function()
 			vim.cmd("colorscheme challenger_deep")
+		end,
+	})
+
+	use({
+		"folke/twilight.nvim",
+		opt = true,
+		cmd = {
+			"Twilight",
+			"TwilightEnable",
+			"TwilightDisable",
+		},
+		config = function()
+			require("sx.plugin.twilight").setup()
 		end,
 	})
 

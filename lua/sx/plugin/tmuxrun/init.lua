@@ -8,6 +8,7 @@ function M.setup()
 	tmuxrun.setup({
 		newPaneInitTime = 800,
 		saveFile = tmuxrun.SaveFile.All,
+		ctrlcBeforeSend = true,
 	})
 end
 

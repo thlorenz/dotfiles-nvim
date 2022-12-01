@@ -96,7 +96,7 @@ local function config()
 		mappings = {
 			b = {
 				name = "Runners/Tmux",
-				c = {
+				k = {
 					"<cmd>TmuxCtrlC<cr>",
 					"Tmux: send Ctrl-C to selected pane",
 				},
@@ -124,6 +124,12 @@ local function config()
 			},
 			c = {
 				r = "<cmd>LspRestart<cr>",
+			},
+			w = {
+				w = {
+					"<cmd>SmartResizeMode<cr>",
+					"Resize Mode",
+				},
 			},
 			p = {
 				name = "Packer",

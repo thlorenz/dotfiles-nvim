@@ -147,6 +147,13 @@ local function config()
 			},
 			dash = {
 				search_engine = "google",
+				file_type_keywords = {
+					javascript = { "javascript", "nodejs" },
+					typescript = { "typescript", "javascript", "nodejs" },
+					typescriptreact = { "typescript", "javascript", "react" },
+					javascriptreact = { "javascript", "react" },
+					rust = { "rust", "bevy" },
+				},
 			},
 			bookmarks = {
 				selected_browser = "chrome",
@@ -260,6 +267,7 @@ function M.setup()
 		telescope.load_extension("ui-select")
 		telescope.load_extension("playlist")
 		telescope.load_extension("tmux")
+		telescope.load_extension("neoclip")
 	end)
 end
 
