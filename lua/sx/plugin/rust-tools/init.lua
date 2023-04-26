@@ -2,6 +2,86 @@ local Log = require("sx.core.log")
 
 local M = {}
 
+local clippyTests = {
+	"cargo",
+	"clippy",
+	"--tests",
+	-- "--all-features",
+
+	"--message-format=json",
+}
+
+local check = {
+	"cargo",
+	"check",
+
+	"--message-format=json",
+}
+
+local checkTests = {
+	"cargo",
+	"check",
+	"--tests",
+
+	"--message-format=json",
+}
+
+-- Custom
+local chainsawBench = {
+	"cargo",
+	"build",
+	"--features=bson,json",
+	"--bench=deserialization",
+
+	"--message-format=json",
+}
+
+local chainsawNetwork = {
+	"cargo",
+	"build",
+	"--features=bson,network",
+
+	"--message-format=json",
+}
+
+local clippyFeaturesBson = {
+	"cargo",
+	"clippy",
+	"--features=bson",
+
+	"--message-format=json",
+}
+
+local clippyFeaturesNetworkTests = {
+	"cargo",
+	"clippy",
+	"--features=network",
+	"--tests",
+
+	"--message-format=json",
+}
+
+local hulkLocal = {
+	"cargo",
+	"clippy",
+	"--tests",
+	"--features=test",
+
+	"--message-format=json",
+}
+
+local function clippy(tests, features)
+	local cmd = { "cargo", "clippy" }
+	if tests then
+		table.insert(cmd, "--tests")
+	end
+	if features then
+		table.insert(cmd, "--features=" .. features)
+	end
+	table.insert(cmd, "--message-format=json")
+	return cmd
+end
+
 M.setup = function()
 	local status_ok, rust_tools = pcall(require, "rust-tools")
 	if not status_ok then
@@ -48,9 +128,9 @@ M.setup = function()
 			standalone = false,
 			cmd = {
 				-- nightly rustup component add rust-analyzer-preview
-				-- "/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer",
+				"/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer",
 				-- brew install rust-analyzer
-				"/usr/local/bin/rust-analyzer",
+				-- "/usr/local/bin/rust-analyzer",
 			},
 			-- on_attach is a callback called when the language server attachs to the buffer
 			-- on_attach = on_attach,
@@ -87,29 +167,10 @@ M.setup = function()
 					},
 					checkOnSave = {
 						enable = true,
-						-- command = "check",
-						-- command = "clippy",
-						-- extraArgs = {
-						-- 	"--target-dir",
-						-- 	"/tmp/rust-analyzer-check",
-						-- 	"--tests",
-						-- },
 						allTargets = false,
 						features = "all",
-						overrideCommand = {
-							"cargo",
-							"clippy",
-							"--tests",
-							"--all-features",
-							"--message-format=json",
-						},
-						-- overrideCommand = { "cargo", "check", "--tests" },
-						-- Using clippy creates tons of clippy processes and slows everything down
-						--overrideCommand = { "cargo", "clippy", "--tests" },
-						-- command = "clippy",
-						-- extraArgs = { "--tests" },
-						-- The below ensures that we don't get unused warnings for our test code
-						-- allTargets = false,
+						-- overrideCommand = clippy(true, "test"),
+						overrideCommand = clippy(false),
 					},
 				},
 			},
