@@ -28,7 +28,7 @@ M.setup = function()
 
 	local function prettier()
 		return {
-			exe = "prettierd",
+			exe = "prettier",
 			args = {
 				"--stdin-filepath",
 				vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
@@ -43,7 +43,7 @@ M.setup = function()
 			-- Prettier for TS/JS + JSON
 			typescript = filetypes.typescript.prettierd,
 			typescriptreact = filetypes.typescript.prettierd,
-			javascript = filetypes.javascript.prettierd,
+			javascript = filetypes.javascript.prettier,
 			javascriptreact = filetypes.javascript.prettierd,
 			json = filetypes.json.prettierd,
 

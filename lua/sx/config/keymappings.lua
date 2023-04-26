@@ -38,8 +38,8 @@ local function config()
 			-- Resize with arrows
 			["<C-Up>"] = ":resize -2<CR>",
 			["<C-Down>"] = ":resize +2<CR>",
-			["<C-Left>"] = ":vertical resize -2<CR>",
-			["<C-Right>"] = ":vertical resize +2<CR>",
+			["<C-Left>"] = ":vertical resize +2<CR>",
+			["<C-Right>"] = ":vertical resize -2<CR>",
 
 			-- QuickFix
 			["]q"] = ":cnext<CR>",
