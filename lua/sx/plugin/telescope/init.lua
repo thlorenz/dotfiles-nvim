@@ -268,6 +268,7 @@ function M.setup()
 		telescope.load_extension("playlist")
 		telescope.load_extension("tmux")
 		telescope.load_extension("neoclip")
+		telescope.load_extension("vim_bookmarks")
 	end)
 end
 

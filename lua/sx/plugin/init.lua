@@ -52,6 +52,13 @@ packer.startup(function(use)
 		end,
 	})
 
+	-- Bookmarks
+	use({
+		"MattesGroeger/vim-bookmarks",
+	})
+	use({
+		"tom-anders/telescope-vim-bookmarks.nvim",
+	})
 	--
 	-- Telescope
 	--
@@ -185,6 +192,10 @@ packer.startup(function(use)
 	-- Wakatime
 	use("wakatime/vim-wakatime")
 
+	-- VimWiki
+	require("sx.plugin.vimwiki").preSetup()
+	use("vimwiki/vimwiki")
+
 	--
 	-- Shortcuts
 	--
@@ -210,6 +221,7 @@ packer.startup(function(use)
 		end,
 	})
 	use({ "ron-rs/ron.vim" })
+	use({ "rvmelkonian/move.vim" })
 
 	use({
 		"mhartington/formatter.nvim",
@@ -232,6 +244,10 @@ packer.startup(function(use)
 	vim.cmd([[
     highlight CopilotSuggestion guifg=#304d9f ctermfg=8
     let g:copilot_no_tab_map = v:true
+    let g:copilot_filetypes = {
+    \   '*': v:true,
+    \   'xml': v:false,
+    \ }
 
     imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
     imap <silent><script><nowait><expr> <C-\> copilot#Dismiss() . "\<C-\>"
@@ -431,6 +447,9 @@ packer.startup(function(use)
 			require("sx.plugin.rust-tools").setup()
 		end,
 	})
+
+	-- Go
+	use({ "ray-x/go.nvim" })
 
 	if packer_bootstrap then
 		packer.sync()

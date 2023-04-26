@@ -125,12 +125,6 @@ local function config()
 			c = {
 				r = "<cmd>LspRestart<cr>",
 			},
-			w = {
-				w = {
-					"<cmd>SmartResizeMode<cr>",
-					"Resize Mode",
-				},
-			},
 			p = {
 				name = "Packer",
 				c = { "<cmd>PackerCompile<cr>", "Compile" },
@@ -143,8 +137,8 @@ local function config()
 			l = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
 			f = {
 				name = "Find",
-				F = { "<cmd>Telescope find_files<cr>", "Find File" },
-				f = { "<cmd>Telescope git_files<cr>", "Find Git File" },
+				f = { "<cmd>Telescope find_files<cr>", "Find File" },
+				F = { "<cmd>Telescope git_files<cr>", "Find Git File" },
 				r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 				b = { "<cmd>Telescope bookmarks<cr>", "Bookmarks" },
 				s = { "<cmd>BrowserSearch<cr>", "Browser Search" },
@@ -393,6 +387,25 @@ local function config()
 				S = {
 					"<cmd>lua require'dap.ui.widgets'.scopes()<cr>",
 					"Scopes",
+				},
+			},
+			-- Vimwiki
+			w = {
+				H = {
+					function()
+						vim.cmd(
+							"e ~/dev/thlorenz/vimwiki/projects/if/workhours.md"
+						)
+					end,
+					"Workhours",
+				},
+				s = {
+					function()
+						vim.cmd(
+							"e ~/dev/thlorenz/vimwiki/projects/if/standup.md"
+						)
+					end,
+					"Standup",
 				},
 			},
 		},
