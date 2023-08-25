@@ -61,7 +61,7 @@ local clippyFeaturesNetworkTests = {
 	"--message-format=json",
 }
 
-local hulkLocal = {
+local featuresTest = {
 	"cargo",
 	"clippy",
 	"--tests",
@@ -72,6 +72,18 @@ local hulkLocal = {
 
 local function clippy(tests, features)
 	local cmd = { "cargo", "clippy" }
+	if tests then
+		table.insert(cmd, "--tests")
+	end
+	if features then
+		table.insert(cmd, "--features=" .. features)
+	end
+	table.insert(cmd, "--message-format=json")
+	return cmd
+end
+
+local function clippy_offline(tests, features)
+	local cmd = { "cargo", "clippy", "--offline" }
 	if tests then
 		table.insert(cmd, "--tests")
 	end
@@ -126,12 +138,10 @@ M.setup = function()
 		-- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
 		server = {
 			standalone = false,
-			cmd = {
-				-- nightly rustup component add rust-analyzer-preview
-				"/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer",
-				-- brew install rust-analyzer
-				-- "/usr/local/bin/rust-analyzer",
-			},
+			-- cmd = {
+			-- nightly rustup component add rust-analyzer-preview
+			-- "/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer",
+			-- },
 			-- on_attach is a callback called when the language server attachs to the buffer
 			-- on_attach = on_attach,
 			settings = {
@@ -169,8 +179,8 @@ M.setup = function()
 						enable = true,
 						allTargets = false,
 						features = "all",
-						-- overrideCommand = clippy(true, "test"),
-						overrideCommand = clippy(false),
+						-- overrideCommand = clippy(false),
+						overrideCommand = featuresTest,
 					},
 				},
 			},

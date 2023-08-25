@@ -104,7 +104,7 @@ M.load_default_options = function()
     au FileType rust nmap <silent><leader>br :RustRunnables<CR>
     au FileType rust nmap <silent><leader>bc :wa \| Make check --tests<CR>
     au FileType rust nmap <silent><leader>bb :wa \| Make build --tests<CR>
-    au FileType rust nmap <silent><leader>bB :wa \| Make build-bpf<CR>
+    au FileType rust nmap <silent><leader>bB :wa \| Make build --features=test<CR>
 
     au BufRead,BufNewFile *.lua set makeprg=luacheck
     au FileType lua noremap <silent><leader>bb :Make . --codes --formatter visual_studio --no-color<CR>
