@@ -30,18 +30,16 @@ endsnippet
 
 
 snippet main "main function"
-if (module === require.main) {
-	async function main() {
-		$1
-	}
-
-	main()
-		.then(() => process.exit(0))
-		.catch((err: any) => {
-			console.error(err)
-			process.exit(1)
-		})
+async function main() {
+	$1
 }
+
+main()
+	.then(() => process.exit(0))
+	.catch((err: any) => {
+		console.error(err)
+		process.exit(1)
+	})
 endsnippet
 
 snippet react_provider "React Provider"
