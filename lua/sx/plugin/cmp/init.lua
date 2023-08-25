@@ -1,6 +1,7 @@
 local M = {}
 
 local Log = require("sx.core.log")
+local lsp = require("sx.plugin.lsp")
 
 local function config(cmp)
 	return {
@@ -32,6 +33,7 @@ local function config(cmp)
 		sources = {
 			-- { name = "copilot" },
 			{ name = "path" },
+			{ name = "cmp_ai" },
 			{ name = "ultisnips" },
 			{ name = "nvim_lua" },
 			{ name = "nvim_lsp" },
@@ -62,17 +64,21 @@ function M.setup()
 	local conf = config(cmp)
 	cmp.setup(conf)
 
-	-- lspconfig + typescript
+	-- lspconfig + typescript + json
 	local status_ok, lspconfig = pcall(require, "lspconfig")
 	if not status_ok then
 		Log:error("Failed to load lspconfig")
 		return
 	end
 
+	local capabilities = require("cmp_nvim_lsp").default_capabilities(
+		vim.lsp.protocol.make_client_capabilities()
+	)
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+	-- TypeScript
 	lspconfig.tsserver.setup({
-		capabilities = require("cmp_nvim_lsp").default_capabilities(
-			vim.lsp.protocol.make_client_capabilities()
-		),
+		capabilities = capabilities,
 		init_options = {
 			importModuleSpecifier = "relative",
 		},
@@ -82,6 +88,12 @@ function M.setup()
 		preferences = {
 			importModuleSpecifier = "relative",
 		},
+	})
+
+	-- JSON Schema Support
+	lspconfig.jsonls.setup({
+		capabilities = capabilities,
+		settings = lsp.json_settings(),
 	})
 
 	-- keymaps
