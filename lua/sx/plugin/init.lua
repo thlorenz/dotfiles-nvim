@@ -44,14 +44,9 @@ packer.startup(function(use)
 	-- })
 
 	use({ "camgraff/telescope-tmux.nvim" })
-
 	use({
 		"kyazdani42/nvim-tree.lua",
-		requires = {
-			"kyazdani42/nvim-web-devicons", -- optional, for file icons
-		},
-		opt = true,
-		cmd = { "NvimTreeToggle" },
+		requires = { "kyazdani42/nvim-web-devicons" },
 		config = function()
 			require("sx.plugin.nvim-tree").setup()
 		end,
@@ -83,8 +78,6 @@ packer.startup(function(use)
 		requires = { "nvim-telescope/telescope.nvim" },
 		run = "make",
 	})
-	use({ "junegunn/fzf" })
-	use({ "junegunn/fzf.vim" })
 
 	-- Notifications
 	use({
