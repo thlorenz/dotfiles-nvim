@@ -139,6 +139,21 @@ M.setup = function()
 		server = {
 			standalone = false,
 			-- cmd = {
+			-- brew install rust-analyzer
+			-- "/usr/local/bin/rust-analyzer",
+
+			-- should not be needed since we already include this in the PATH
+			-- inside ../mason/init.lua
+			--	"/Users/thlorenz/.local/share/nvim/mason/bin/rust-analyzer",
+			-- },
+			env = {
+				CARGO_TARGET_DIR = "/tmp/rust-anlyzer/build",
+			},
+			extraEnv = {
+				RUSTUP_TOOLCHAIN = "stable",
+			},
+
+			-- cmd = {
 			-- nightly rustup component add rust-analyzer-preview
 			-- "/Users/thlorenz/.rustup/toolchains/nightly-x86_64-apple-darwin/bin/rust-analyzer",
 			-- },
@@ -149,10 +164,9 @@ M.setup = function()
 				-- Schema: https://github.com/simrat39/rust-tools.nvim/blob/master/ci/schema/output.md
 				["rust-analyzer"] = {
 					updates = {
-						channel = "nightly",
+						channel = "stable",
 						prompt = true,
 					},
-
 					inlayHints = {
 						maxLength = 18,
 						chainingHints = true,
@@ -175,12 +189,16 @@ M.setup = function()
 					cargo = {
 						features = "all",
 					},
-					checkOnSave = {
+					checkOnSave = false,
+					__checkOnSave = {
 						enable = true,
-						allTargets = false,
-						features = "all",
-						-- overrideCommand = clippy(false),
-						overrideCommand = featuresTest,
+						targets = { "x86_64-apple-darwin" },
+						-- features = "all",
+						-- overrideCommand = clippy(true),
+					},
+					rustfmt = {
+						--  overrideCommand = { './build/x86_64-unknown-linux-gnu/stage0/bin/rustfmt', '--edition=2021' },
+						-- extraArgs = { "+nightly" },
 					},
 				},
 			},

@@ -123,7 +123,18 @@ local function config()
 				},
 			},
 			c = {
-				r = "<cmd>LspRestart<cr>",
+				c = {
+					'<cmd>lua os.execute(string.format("clion --line %s %s", vim.api.nvim_win_get_cursor(0)[1], vim.api.nvim_buf_get_name(0)))<CR>',
+					"Open in CLion",
+				},
+				i = {
+					'<cmd>lua os.execute(string.format("idea --line %s %s", vim.api.nvim_win_get_cursor(0)[1], vim.api.nvim_buf_get_name(0)))<CR>',
+					"Open in Intellij Idea",
+				},
+				r = {
+					'<cmd>lua os.execute(string.format("rustrover --line %s %s", vim.api.nvim_win_get_cursor(0)[1], vim.api.nvim_buf_get_name(0)))<CR>',
+					"Open in RustRover",
+				},
 			},
 			p = {
 				name = "Packer",
@@ -134,16 +145,20 @@ local function config()
 				u = { "<cmd>PackerUpdate<cr>", "Update" },
 			},
 
-			l = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
+			l = {
+				"<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>",
+				"Find Buffer",
+			},
 			f = {
 				name = "Find",
-				f = { "<cmd>Telescope find_files<cr>", "Find File" },
-				F = { "<cmd>Telescope git_files<cr>", "Find Git File" },
+				F = { "<cmd>Telescope find_files<cr>", "Find File" },
+				f = { "<cmd>Telescope git_files<cr>", "Find Git File" },
 				r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 				b = { "<cmd>Telescope bookmarks<cr>", "Bookmarks" },
 				s = { "<cmd>BrowserSearch<cr>", "Browser Search" },
 				w = { "<cmd>Telescope tmux sessions<cr>", "Tmux Sessions" },
 				W = { "<cmd>Telescope tmux windows<cr>", "Tmux Windows" },
+				j = { "<cmd>Telescope jump_list<cr>", "Jump List" },
 			},
 
 			s = {
@@ -286,6 +301,28 @@ local function config()
 				l = { vim.lsp.codelens.run, "CodeLens Action" },
 				q = { vim.diagnostic.setloclist, "Quickfix" },
 				e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
+				R = "<cmd>LspRestart<cr>",
+
+				-- RustLsp
+				r = {
+					d = {
+						"<cmd>RustLsp externalDocs<cr>",
+						"RustLsp: external docs",
+					},
+					e = {
+						"<cmd>RustLsp explanError<cr>",
+						"RustLsp: explain error",
+					},
+					o = { "<cmd>RustLsp openCargo<cr>", "RustLsp: open cargo" },
+					p = {
+						"<cmd>RustLsp parentModule<cr>",
+						"RustLsp: parent module",
+					},
+					r = {
+						"<cmd>RustLsp reloadWorkspace<cr>",
+						"RustLsp: reload workspace",
+					},
+				},
 			},
 
 			-- Copy relative/full path to system clipboard

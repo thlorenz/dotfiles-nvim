@@ -45,6 +45,7 @@ local function config()
 			["]q"] = ":cnext<CR>",
 			["[q"] = ":cprev<CR>",
 			["cc"] = ":cclose<CR>",
+			["co"] = ":copen<CR>",
 
 			["]g"] = vim.diagnostic.goto_next,
 			["[g"] = vim.diagnostic.goto_prev,

@@ -1,5 +1,10 @@
 local Log = require("sx.core.log")
 
+vim.env.PATH = vim.fn.stdpath("data")
+	.. "/mason/bin"
+	.. (is_windows and "; " or ":")
+	.. vim.env.PATH
+
 local packer_available, packer = pcall(require, "packer")
 if not packer_available then
 	Log:warn("skipping loading plugins until Packer is installed")
@@ -52,6 +57,9 @@ packer.startup(function(use)
 		end,
 	})
 
+	-- Buffers
+	use("kazhala/close-buffers.nvim")
+
 	-- Bookmarks
 	use({
 		"MattesGroeger/vim-bookmarks",
@@ -75,6 +83,9 @@ packer.startup(function(use)
 		requires = { "nvim-telescope/telescope.nvim" },
 		run = "make",
 	})
+	use({ "junegunn/fzf" })
+	use({ "junegunn/fzf.vim" })
+
 	-- Notifications
 	use({
 		"rcarriga/nvim-notify",
@@ -151,13 +162,25 @@ packer.startup(function(use)
 		ft = { "fugitive" },
 	})
 
-	use({
-		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("sx.plugin.gitsigns").setup()
-		end,
-		event = "BufRead",
-	})
+	-- use({
+	-- 	"lewis6991/gitsigns.nvim",
+	-- 	config = function()
+	-- 		require("sx.plugin.gitsigns").setup()
+	-- 	end,
+	-- 	event = "BufRead",
+	-- })
+
+	-- use({
+	-- 	"pwntester/octo.nvim",
+	-- 	requires = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"nvim-telescope/telescope.nvim",
+	-- 		"nvim-tree/nvim-web-devicons",
+	-- 	},
+	-- 	config = function()
+	-- 		require("octo").setup()
+	-- 	end,
+	-- })
 
 	-- Make and Quickfix
 	require("sx.plugin.dispatch").source()
@@ -196,6 +219,18 @@ packer.startup(function(use)
 	require("sx.plugin.vimwiki").preSetup()
 	use("vimwiki/vimwiki")
 
+	-- AI Bard
+	-- pip install bardapi
+	-- https://github.com/dsdanielpark/Bard-API
+	-- Currently broken
+	-- use({
+	-- 	"tzachar/cmp-ai",
+	-- 	setup = function()
+	-- 		require("sx.plugin.cmp-ai")
+	-- 	end,
+	-- })
+
+	use({ "mosajjal/bard-cli", rtp = "nvim" })
 	--
 	-- Shortcuts
 	--
@@ -236,6 +271,9 @@ packer.startup(function(use)
 
 	-- Substitution and renaming
 	use({ "tpope/vim-abolish" })
+
+	-- Multiple Cursors
+	use({ "mg979/vim-visual-multi" })
 
 	-- Surrounding
 	use({ "tpope/vim-surround" })
@@ -368,6 +406,7 @@ packer.startup(function(use)
 	})
 	use({
 		"j-hui/fidget.nvim",
+		tag = "legacy",
 		event = "BufReadPre",
 		config = function()
 			require("fidget").setup({})
@@ -386,6 +425,7 @@ packer.startup(function(use)
 		end,
 	})
 
+	-- https://github.com/folke/twilight.nvim
 	use({
 		"folke/twilight.nvim",
 		opt = true,
@@ -437,15 +477,38 @@ packer.startup(function(use)
 	-- Language Support
 	--
 
-	-- Rust
+	-- Hex Editing
 	use({
-		"simrat39/rust-tools.nvim",
-		requires = { "nvim-lua/plenary.nvim", "rust-lang/rust.vim" },
-		module = "rust-tools",
-		ft = { "rust" },
+		"RaafatTurki/hex.nvim",
 		config = function()
-			require("sx.plugin.rust-tools").setup()
+			require("hex").setup()
 		end,
+	})
+
+	-- Manage language servers with mason
+	-- MasonInstall rust-analyzer codelldb
+	use({
+		"williamboman/mason.nvim",
+		requires = "williamboman/mason-lspconfig.nvim",
+		config = function()
+			require("sx.plugin.mason").setup()
+		end,
+	})
+
+	-- Rust
+	-- 	use({
+	-- 		"simrat39/rust-tools.nvim",
+	-- 		requires = { "nvim-lua/plenary.nvim", "rust-lang/rust.vim" },
+	-- 		module = "rust-tools",
+	-- 		ft = { "rust" },
+	-- 		config = function()
+	-- 			require("sx.plugin.rust-tools").setup()
+	-- 		end,
+	-- 	})
+	use({
+		"mrcjkb/rustaceanvim",
+		version = "^3", -- Recommended
+		ft = { "rust" },
 	})
 
 	-- Go
@@ -454,4 +517,8 @@ packer.startup(function(use)
 	if packer_bootstrap then
 		packer.sync()
 	end
+
+	-- Dart/Flutter
+	use({ "dart-lang/dart-vim-plugin" })
+	use({ "thosakwe/vim-flutter" })
 end)

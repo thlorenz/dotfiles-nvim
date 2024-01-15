@@ -20,15 +20,16 @@ M.load_default_options = function()
 	o.mouse = "a" -- allow the mouse to be used in neovim
 	o.pumheight = 10 -- pop up menu height
 	o.showmode = false -- we don't need to see things like -- INSERT -- anymore
-	o.showtabline = 0 -- never show tabs
+	o.showtabline = 1 -- never show tabs
 	o.splitbelow = true -- force all horizontal splits to go below current window
 	o.splitright = true -- force all vertical splits to go to the right of current window
 	o.termguicolors = true -- set term gui colors (most terminals support this)
 
 	o.virtualedit = nil
 
+	-- https://www.johnhawthorn.com/2012/09/vi-escape-delays/
 	o.timeoutlen = 600 -- time to wait for a mapped sequence to complete (in milliseconds)
-	o.ttimeoutlen = 600
+	o.ttimeoutlen = 0 -- this one is important to be able to get out of visual mode quickly
 	o.updatetime = 300
 
 	o.title = true -- set the title of window to the value of the titlestring
@@ -87,6 +88,22 @@ M.load_default_options = function()
 	o.shortmess:append("I") -- don't show the default intro message
 	o.whichwrap:append("<,>,[,],h,l")
 
+	-- auto-reload files when modified externally
+	-- https://unix.stackexchange.com/a/383044
+	o.autoread = true
+	-- vim.api.nvim_create_autocmd(
+	-- 	{ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" },
+	-- 	{
+	-- 		command = "if mode() != 'c' | checktime | endif",
+	-- 		pattern = { "*" },
+	-- 	}
+	-- )
+	-- Eliminate trailing whitespace before save
+	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+		pattern = { "*" },
+		command = [[%s/\s\+$//e]],
+	})
+
 	-- TODO: rewrite as non-vim script
 	vim.cmd([[
     au FileType json set tabstop=2 softtabstop=2 shiftwidth=2 tw=120 fo=cqt wm=0
@@ -102,14 +119,23 @@ M.load_default_options = function()
     au FileType rust noremap tr :wa \| ! cargo run<CR>
     au FileType rust noremap tt :wa \| ! cargo test --tests -- --nocapture<CR>
     au FileType rust nmap <silent><leader>br :RustRunnables<CR>
-    au FileType rust nmap <silent><leader>bc :wa \| Make check --tests<CR>
-    au FileType rust nmap <silent><leader>bb :wa \| Make build --tests<CR>
+    au FileType rust nmap <silent><leader>bb :wa \| Make clippy --tests<CR>
+    au FileType rust nmap <silent><leader>bC :wa \| Make check --tests<CR>
+    au FileType rust nmap <silent><leader>bc :wa \| Make build --tests<CR>
     au FileType rust nmap <silent><leader>bB :wa \| Make build --features=test<CR>
 
     au BufRead,BufNewFile *.lua set makeprg=luacheck
     au FileType lua noremap <silent><leader>bb :Make . --codes --formatter visual_studio --no-color<CR>
     au FileType lua noremap tr :wa \| luafile %<CR>
 
+    " quickfix
+    au FileType qf nmap <silent>cn :cnext<CR>
+    au FileType qf nmap <silent>cp :cprev<CR>
+
+    let g:dart_format_on_save = v:true
+    let g:dartfmt_options = ['--fix']
+    au BufRead,BufNewFile *.dart set makeprg=dart
+    " au BufWritePre *.dart lua vim.lsp.buf.format()
     au FileType dart noremap <leader>m :wa \| !dart %<CR>
 
     au FileType python set omnifunc=pythoncomplete#Complete
@@ -120,7 +146,6 @@ M.load_default_options = function()
     au FileType make set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
     au FileType javascript,lua,dart,python,css,yaml,typescript set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
     au FileType markdown set tabstop=2 softtabstop=2 shiftwidth=2 tw=95 fo=cqt wm=0 conceallevel=0 concealcursor=nvc
-
     autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$") |
         \   exe "normal! g`\"" |

@@ -90,6 +90,21 @@ function M.setup()
 		},
 	})
 
+	-- Dart/Flutter
+	lspconfig.dartls.setup({
+		-- dart language-server --protocol=lsp
+		-- cmd = {
+		-- 	"dart",
+		-- 	"/Users/thlorenz/dev/flutter/sdk/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot",
+		-- 	"--lsp",
+		-- },
+		closingLabels = true,
+		flutterOutline = true,
+		onlyAnalyzeProjectsWithOpenFiles = true,
+		outline = true,
+		suggestFromUnimportedLibraries = true,
+	})
+
 	-- JSON Schema Support
 	lspconfig.jsonls.setup({
 		capabilities = capabilities,
@@ -100,6 +115,11 @@ function M.setup()
 	vim.cmd([[
     nnoremap gd :lua vim.lsp.buf.definition()<CR>
     nnoremap gr :Telescope lsp_references<CR>
+    nnoremap <silent> gV :vsplit<CR>:lua vim.lsp.buf.definition()<CR>
+    nnoremap <silent> gs :split<CR>:lua vim.lsp.buf.definition()<CR>
+    nnoremap <silent> gt :tab split<CR>:lua vim.lsp.buf.definition()<CR>
+    nnoremap tp :tabprevious<CR>
+    nnoremap tc :tabclose<CR>
     nnoremap K :lua vim.lsp.buf.hover()<CR>
   ]])
 

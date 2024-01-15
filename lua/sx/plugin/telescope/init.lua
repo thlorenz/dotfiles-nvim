@@ -48,6 +48,9 @@ local function config()
 	end
 	return {
 		defaults = {
+			preview = {
+				filesize_limit = 0.1, -- MB
+			},
 			prompt_prefix = " ",
 			selection_caret = " ",
 			entry_prefix = "  ",
@@ -56,7 +59,7 @@ local function config()
 			sorting_strategy = "descending",
 			layout_strategy = "horizontal",
 			layout_config = {
-				width = 0.75,
+				width = 0.85,
 				-- width = function(ctx, cols)
 				-- 	local max = math.floor(cols * 0.75)
 				-- 	if use_small_dialog(ctx) then
@@ -75,9 +78,9 @@ local function config()
 				horizontal = {
 					preview_width = function(_, cols, _)
 						if cols < 120 then
-							return math.floor(cols * 0.5)
+							return math.floor(cols * 0.4)
 						end
-						return math.floor(cols * 0.6)
+						return math.floor(cols * 0.5)
 					end,
 					mirror = false,
 				},
@@ -112,8 +115,15 @@ local function config()
 						+ actions.open_qflist,
 				},
 			},
-			file_ignore_patterns = {},
-			path_display = { shorten = 5 },
+			file_ignore_patterns = {
+				"*.png",
+				"*.jpg",
+				"*.jpeg",
+				"*.gif",
+				"*.ttf",
+				"*.otf",
+			},
+			path_display = { shorten = 20 },
 			winblend = 0,
 			border = {},
 			borderchars = {

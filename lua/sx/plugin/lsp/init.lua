@@ -10,6 +10,13 @@ local function setup_diags()
 		})
 end
 
+local function setup_lsp_util()
+	-- https://github.com/neovim/nvim-lspconfig/issues/2357#issuecomment-1365452173
+	local params = lsp.util.make_workspace_params({
+		{ uri = vim.uri_from_fname(root_dir), name = root_dir },
+	})
+end
+
 function M.json_settings()
 	-- npm i -g vscode-langservers-extracted
 	return {

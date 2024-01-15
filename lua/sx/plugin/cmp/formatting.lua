@@ -27,6 +27,7 @@ local kind_icons = {
 }
 
 local source_names = {
+	cmp_ai = "(Bard)",
 	nvim_lsp = "(LSP)",
 	nvim_lua = "(API)",
 	ultisnips = "(UltiSnips)",
