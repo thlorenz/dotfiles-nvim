@@ -2,6 +2,45 @@ local Log = require("sx.core.log")
 
 local M = {}
 
+local function use_small_dialog(ctx)
+	if ctx.finder and ctx.finder.results and ctx.finder.results[1] then
+		local fst = ctx.finder.results[1]
+		local client_name = fst.value
+			and fst.value.add
+			and fst.value.add.client_name
+		return client_name == "tsserver"
+	end
+	return false
+end
+
+local function is_table(t)
+	return t ~= nil and type(t) == "table"
+end
+
+local function get_desired_width(ctx)
+	local len = 0
+	if ctx.finder and ctx.finder.results then
+		for k, v in pairs(ctx.finder.results) do
+			for k, v in pairs(v) do
+				if is_table(v) then
+					local add = v.add
+					if add ~= nil then
+						if add.client_name ~= nil then
+							len = len + #add.client_name
+						end
+						if add.command_title ~= nil then
+							len = len + #add.command_title
+						end
+					end
+				end
+			end
+		end
+	else
+		return 1000000
+	end
+	return len
+end
+
 local function config()
 	local ok, actions = pcall(require, "telescope.actions")
 	if not ok then
@@ -9,6 +48,9 @@ local function config()
 	end
 	return {
 		defaults = {
+			preview = {
+				filesize_limit = 2, -- MB
+			},
 			prompt_prefix = " ",
 			selection_caret = " ",
 			entry_prefix = "  ",
@@ -17,14 +59,28 @@ local function config()
 			sorting_strategy = "descending",
 			layout_strategy = "horizontal",
 			layout_config = {
-				width = 0.75,
+				width = 0.85,
+				-- width = function(ctx, cols)
+				-- 	local max = math.floor(cols * 0.75)
+				-- 	if use_small_dialog(ctx) then
+				-- 		return math.min(max, 80)
+				-- 	end
+				-- 	return max
+				-- end,
+				-- height = function(ctx, rows)
+				-- 	local max = math.floor(rows * 0.75)
+				-- 	if use_small_dialog(ctx) then
+				-- 		return math.min(max, 30)
+				-- 	end
+				-- 	return max
+				-- end,
 				preview_cutoff = 120,
 				horizontal = {
 					preview_width = function(_, cols, _)
 						if cols < 120 then
-							return math.floor(cols * 0.5)
+							return math.floor(cols * 0.4)
 						end
-						return math.floor(cols * 0.6)
+						return math.floor(cols * 0.5)
 					end,
 					mirror = false,
 				},
@@ -48,20 +104,38 @@ local function config()
 					["<C-c>"] = actions.close,
 					["<C-j>"] = actions.cycle_history_next,
 					["<C-k>"] = actions.cycle_history_prev,
-					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+					["<C-q>"] = actions.smart_send_to_qflist
+						+ actions.open_qflist,
 					["<CR>"] = actions.select_default,
 				},
 				n = {
 					["<C-n>"] = actions.move_selection_next,
 					["<C-p>"] = actions.move_selection_previous,
-					["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+					["<C-q>"] = actions.smart_send_to_qflist
+						+ actions.open_qflist,
 				},
 			},
-			file_ignore_patterns = {},
-			path_display = { shorten = 5 },
+			file_ignore_patterns = {
+				"*.png",
+				"*.jpg",
+				"*.jpeg",
+				"*.gif",
+				"*.ttf",
+				"*.otf",
+			},
+			path_display = { shorten = 20 },
 			winblend = 0,
 			border = {},
-			borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+			borderchars = {
+				"─",
+				"│",
+				"─",
+				"│",
+				"╭",
+				"╮",
+				"╯",
+				"╰",
+			},
 			color_devicons = true,
 			set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
 			pickers = {
@@ -83,12 +157,74 @@ local function config()
 			},
 			dash = {
 				search_engine = "google",
+				file_type_keywords = {
+					javascript = { "javascript", "nodejs" },
+					typescript = { "typescript", "javascript", "nodejs" },
+					typescriptreact = { "typescript", "javascript", "react" },
+					javascriptreact = { "javascript", "react" },
+					rust = { "rust", "bevy" },
+				},
 			},
 			bookmarks = {
 				selected_browser = "chrome",
 				url_open_command = "open",
 				url_open_plugin = nil,
 				full_path = true,
+			},
+			playlist = {
+				paths = {
+					Jazz = "/Volumes/d/dotfiles/bash/scripts/playlists/jazz-all.pls",
+					DI = "/Volumes/d/dotfiles/bash/scripts/playlists/di-all.pls",
+					Rock = "/Volumes/d/dotfiles/bash/scripts/playlists/rock-radio-all.pls",
+					Misc = "/Volumes/d/dotfiles/bash/scripts/playlists/radio-tunes-all.pls",
+					Classical = "/Volumes/d/dotfiles/bash/scripts/playlists/classical-all.pls",
+					Zen = "/Volumes/d/dotfiles/bash/scripts/playlists/zen-radio-all.pls",
+					CC0 = "/Volumes/d/dotfiles/bash/scripts/playlists/cc0-rfm-ncm.pls",
+				},
+			},
+			["ui-select"] = {
+				require("telescope.themes").get_cursor({
+					layout_config = {
+						-- width = 200,
+						-- width = function(ctx, cols)
+						-- 	local w = get_desired_width(ctx)
+						-- 	return math.min(w, math.floor(cols * 0.75))
+						-- end,
+						height = 20,
+					},
+					borderchars = {
+						prompt = {
+							"─",
+							"│",
+							" ",
+							"│",
+							"╭",
+							"╮",
+							"│",
+							"│",
+						},
+						results = {
+							"─",
+							"│",
+							"─",
+							"│",
+							"├",
+							"┤",
+							"╯",
+							"╰",
+						},
+						preview = {
+							"─",
+							"│",
+							"─",
+							"│",
+							"╭",
+							"╮",
+							"╯",
+							"╰",
+						},
+					},
+				}),
 			},
 		},
 	}
@@ -138,8 +274,12 @@ function M.setup()
 		telescope.load_extension("dash")
 		telescope.load_extension("bookmarks")
 		telescope.load_extension("gh")
+		telescope.load_extension("ui-select")
+		telescope.load_extension("playlist")
+		telescope.load_extension("tmux")
+		telescope.load_extension("neoclip")
+		telescope.load_extension("vim_bookmarks")
 	end)
 end
-M.setup()
 
 return M

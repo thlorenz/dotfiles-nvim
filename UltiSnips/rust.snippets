@@ -1,7 +1,7 @@
 ## Rust Snippets
 
 # Commenting
-snippet todo "TODO comment"
+snippet td "TODO comment"
 // TODO(thlorenz): $0
 endsnippet
 
@@ -13,6 +13,36 @@ fn ${1:function_name}() {
 }
 endsnippet
 
+snippet modtest "Unit test module"
+#[cfg(test)]
+mod tests {
+	use super::*;
+	${0}
+}
+endsnippet
+
+# Derives
+
+snippet derh "derive Debug, Clone, PartialEq, Eq, Hash"
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+endsnippet
+
+snippet dere "derive Debug, Clone, PartialEq, Eq"
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+endsnippet
+
+snippet derc "derive Clone"
+#[derive(Clone)]
+endsnippet
+
+snippet derd "derive Debug"
+#[derive(Debug)]
+endsnippet
+
+snippet derdc "derive Debug, Clone"
+#[derive(Debug, Clone)]
+endsnippet
+
 snippet hdr "header comment"
 // -----------------
 // $1
@@ -22,6 +52,14 @@ endsnippet
 # Logging
 snippet epr "eprintln! debug"
 eprintln!("{:#?}", ${1});${0}
+endsnippet
+
+snippet inf "info! debug"
+info!("{:#?}", ${1});${0}
+endsnippet
+
+snippet deb "debug! debug"
+debug!("{:#?}", ${1});${0}
 endsnippet
 
 # Custom Imports

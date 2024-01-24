@@ -21,23 +21,11 @@ local mode_adapters = {
 	command_mode = "c",
 }
 
----@class Keys
----@field insert_mode table
----@field normal_mode table
----@field terminal_mode table
----@field visual_mode table
----@field visual_block_mode table
----@field command_mode table
-
 local function config()
 	local defaults = {
 		insert_mode = {
 			-- 'jk' for quitting insert mode
 			["jk"] = "<ESC>",
-			-- 'kj' for quitting insert mode
-			["kj"] = "<ESC>",
-			-- 'jj' for quitting insert mode
-			["jj"] = "<ESC>",
 		},
 
 		normal_mode = {
@@ -50,15 +38,17 @@ local function config()
 			-- Resize with arrows
 			["<C-Up>"] = ":resize -2<CR>",
 			["<C-Down>"] = ":resize +2<CR>",
-			["<C-Left>"] = ":vertical resize -2<CR>",
-			["<C-Right>"] = ":vertical resize +2<CR>",
+			["<C-Left>"] = ":vertical resize +2<CR>",
+			["<C-Right>"] = ":vertical resize -2<CR>",
 
 			-- QuickFix
 			["]q"] = ":cnext<CR>",
 			["[q"] = ":cprev<CR>",
-			["cc"] = ":call QuickFixToggle()<CR>",
+			["cc"] = ":cclose<CR>",
+			["co"] = ":copen<CR>",
 
 			["]g"] = vim.diagnostic.goto_next,
+			["[g"] = vim.diagnostic.goto_prev,
 
 			-- Move lines up and down with H and L
 			["<S-l>"] = function()
@@ -67,6 +57,9 @@ local function config()
 			["<S-h>"] = function()
 				vim.cmd("m .-2<CR>==")
 			end,
+
+			-- center cursor when jumping down even if reaching file end
+			["G"] = "Gzz",
 		},
 
 		term_mode = {
@@ -84,8 +77,14 @@ local function config()
 		command_mode = {
 			-- navigate tab completion with <c-j> and <c-k>
 			-- runs conditionally
-			["<C-j>"] = { 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true } },
-			["<C-k>"] = { 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true } },
+			["<C-j>"] = {
+				'pumvisible() ? "\\<C-n>" : "\\<C-j>"',
+				{ expr = true, noremap = true },
+			},
+			["<C-k>"] = {
+				'pumvisible() ? "\\<C-p>" : "\\<C-k>"',
+				{ expr = true, noremap = true },
+			},
 		},
 	}
 

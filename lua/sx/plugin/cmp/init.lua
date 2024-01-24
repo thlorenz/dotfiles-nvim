@@ -1,6 +1,7 @@
 local M = {}
 
 local Log = require("sx.core.log")
+local lsp = require("sx.plugin.lsp")
 
 local function config(cmp)
 	return {
@@ -30,10 +31,12 @@ local function config(cmp)
 			end,
 		},
 		sources = {
+			-- { name = "copilot" },
+			{ name = "path" },
+			{ name = "cmp_ai" },
 			{ name = "ultisnips" },
 			{ name = "nvim_lua" },
 			{ name = "nvim_lsp" },
-			{ name = "path" },
 			{ name = "buffer", keyword_length = 5 },
 			{ name = "calc" },
 			{ name = "treesitter" },
@@ -55,36 +58,73 @@ function M.setup()
 	local status_ok, cmp = pcall(require, "cmp")
 	if not status_ok then
 		Log:error("Failed to load cmp")
-	end
-
-	local status_ok, ultisnips = pcall(require, "ultisnips")
-	if not status_ok then
-		Log:error("Failed to load ultisnips")
+		return
 	end
 
 	local conf = config(cmp)
 	cmp.setup(conf)
 
-	-- lspconfig
+	-- lspconfig + typescript + json
 	local status_ok, lspconfig = pcall(require, "lspconfig")
 	if not status_ok then
 		Log:error("Failed to load lspconfig")
+		return
 	end
 
+	local capabilities = require("cmp_nvim_lsp").default_capabilities(
+		vim.lsp.protocol.make_client_capabilities()
+	)
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+	-- TypeScript
 	lspconfig.tsserver.setup({
-		capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+		capabilities = capabilities,
+		init_options = {
+			importModuleSpecifier = "relative",
+		},
+		initOptions = {
+			importModuleSpecifier = "relative",
+		},
+		preferences = {
+			importModuleSpecifier = "relative",
+		},
 	})
 
-	-- ultisnips
-	vim.cmd([[ let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips" ]])
+	-- Dart/Flutter
+	lspconfig.dartls.setup({
+		-- dart language-server --protocol=lsp
+		-- cmd = {
+		-- 	"dart",
+		-- 	"/Users/thlorenz/dev/flutter/sdk/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot",
+		-- 	"--lsp",
+		-- },
+		closingLabels = true,
+		flutterOutline = true,
+		onlyAnalyzeProjectsWithOpenFiles = true,
+		outline = true,
+		suggestFromUnimportedLibraries = true,
+	})
+
+	-- JSON Schema Support
+	lspconfig.jsonls.setup({
+		capabilities = capabilities,
+		settings = lsp.json_settings(),
+	})
 
 	-- keymaps
 	vim.cmd([[
     nnoremap gd :lua vim.lsp.buf.definition()<CR>
+    nnoremap gr :Telescope lsp_references<CR>
+    nnoremap <silent> gV :vsplit<CR>:lua vim.lsp.buf.definition()<CR>
+    nnoremap <silent> gs :split<CR>:lua vim.lsp.buf.definition()<CR>
+    nnoremap <silent> gt :tab split<CR>:lua vim.lsp.buf.definition()<CR>
+    nnoremap tp :tabprevious<CR>
+    nnoremap tc :tabclose<CR>
     nnoremap K :lua vim.lsp.buf.hover()<CR>
-    nnoremap <leader>. :lua vim.lsp.buf.code_action()<CR>
-    nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
   ]])
+
+	-- ultisnips
+	vim.cmd([[ let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips" ]])
 end
 
 return M
