@@ -56,12 +56,10 @@ packer.startup(function(use)
 	use("kazhala/close-buffers.nvim")
 
 	-- Bookmarks
-	use({
-		"MattesGroeger/vim-bookmarks",
-	})
-	use({
-		"tom-anders/telescope-vim-bookmarks.nvim",
-	})
+	-- Turned off for perf reasons
+	-- use({ "MattesGroeger/vim-bookmarks", })
+	-- use({ "tom-anders/telescope-vim-bookmarks.nvim", })
+
 	--
 	-- Telescope
 	--
@@ -242,12 +240,12 @@ packer.startup(function(use)
 	--
 
 	-- Syntax
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		config = function()
-			require("sx.plugin.treesitter").setup()
-		end,
-	})
+	-- use({
+	-- 	"nvim-treesitter/nvim-treesitter",
+	-- 	config = function()
+	-- 		require("sx.plugin.treesitter").setup()
+	-- 	end,
+	-- })
 	use({ "ron-rs/ron.vim" })
 	use({ "rvmelkonian/move.vim" })
 
@@ -406,7 +404,7 @@ packer.startup(function(use)
 		end,
 	})
 
-	use({ "antoinemadec/FixCursorHold.nvim" }) -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
+	-- use({ "antoinemadec/FixCursorHold.nvim" }) -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 
 	-- Theme
 	require("sx.plugin.colorscheme").source()
@@ -498,6 +496,22 @@ packer.startup(function(use)
 	-- 			require("sx.plugin.rust-tools").setup()
 	-- 		end,
 	-- 	})
+	vim.g.rustaceanvim = {
+		server = {
+			env = {
+				CARGO_TARGET_DIR = "target/rust-anlyzer",
+			},
+			["rust-analyzer"] = {
+				env = {
+					CARGO_TARGET_DIR = "target/rust-anlyzer",
+				},
+			},
+		},
+		dap = {
+			autoload_configurations = false,
+		},
+	}
+
 	use({
 		"mrcjkb/rustaceanvim",
 		version = "^3", -- Recommended

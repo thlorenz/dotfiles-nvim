@@ -49,7 +49,7 @@ local function config()
 	return {
 		defaults = {
 			preview = {
-				filesize_limit = 0.1, -- MB
+				filesize_limit = 2, -- MB
 			},
 			prompt_prefix = " ",
 			selection_caret = " ",
