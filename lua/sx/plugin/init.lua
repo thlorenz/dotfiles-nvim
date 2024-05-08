@@ -61,6 +61,14 @@ packer.startup(function(use)
 
 	use({ "MattesGroeger/vim-bookmarks" })
 	use({ "tom-anders/telescope-vim-bookmarks.nvim" })
+	-- use({
+	-- 	"ThePrimeagen/harpoon",
+	-- 	branch = "harpoon2",
+	-- 	requires = { { "nvim-lua/plenary.nvim" } },
+	-- 	config = function()
+	-- 		require("sx.plugin.harpoon").setup()
+	-- 	end,
+	-- })
 	--
 	-- Telescope
 	--
@@ -114,12 +122,12 @@ packer.startup(function(use)
 		run = "make install",
 	})
 	-- debugging
-	use({
-		"nvim-telescope/telescope-dap.nvim",
-		requires = {
-			"nvim-telescope/telescope.nvim",
-		},
-	})
+	-- use({
+	-- 	"nvim-telescope/telescope-dap.nvim",
+	-- 	requires = {
+	-- 		"nvim-telescope/telescope.nvim",
+	-- 	},
+	-- })
 
 	--
 	-- Tools
@@ -483,25 +491,28 @@ packer.startup(function(use)
 	-- 			require("sx.plugin.rust-tools").setup()
 	-- 		end,
 	-- 	})
-	vim.g.rustaceanvim = {
-		server = {
-			env = {
-				CARGO_TARGET_DIR = "target/rust-anlyzer",
-			},
-			["rust-analyzer"] = {
-				env = {
-					CARGO_TARGET_DIR = "target/rust-anlyzer",
-				},
-			},
-		},
-		dap = {
-			autoload_configurations = false,
-		},
-	}
+	-- vim.g.rustaceanvim = {
+	-- 	server = {
+	-- 		default_settings = {
+	-- 			env = {
+	-- 				CARGO_TARGET_DIR = "target/rust-analyzer",
+	-- 			},
+	-- 			["rust-analyzer"] = {
+	-- 				env = {
+	-- 					CARGO_TARGET_DIR = "target/rust-analyzer",
+	-- 				},
+	-- 				cargo = { target = "wasm32-unknown-unknown" },
+	-- 			},
+	-- 		},
+	-- 		dap = {
+	-- 			autoload_configurations = false,
+	-- 		},
+	-- 	},
+	-- }
 
 	use({
 		"mrcjkb/rustaceanvim",
-		version = "^3", -- Recommended
+		version = "^4", -- Recommended
 		ft = { "rust" },
 	})
 
