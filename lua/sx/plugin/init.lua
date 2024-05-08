@@ -56,10 +56,11 @@ packer.startup(function(use)
 	use("kazhala/close-buffers.nvim")
 
 	-- Bookmarks
-	-- Turned off for perf reasons
-	-- use({ "MattesGroeger/vim-bookmarks", })
-	-- use({ "tom-anders/telescope-vim-bookmarks.nvim", })
+	vim.g.bookmark_save_per_working_dir = 1
+	vim.g.bookmark_auto_save = 1
 
+	use({ "MattesGroeger/vim-bookmarks" })
+	use({ "tom-anders/telescope-vim-bookmarks.nvim" })
 	--
 	-- Telescope
 	--
@@ -112,8 +113,6 @@ packer.startup(function(use)
 		"mrjones2014/dash.nvim",
 		run = "make install",
 	})
-	-- browser bookmarks
-	use({ "dhruvmanila/telescope-bookmarks.nvim" })
 	-- debugging
 	use({
 		"nvim-telescope/telescope-dap.nvim",

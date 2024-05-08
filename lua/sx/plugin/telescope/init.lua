@@ -280,6 +280,18 @@ function M.setup()
 		telescope.load_extension("neoclip")
 		telescope.load_extension("vim_bookmarks")
 	end)
+
+	-- Vim Bookmarks
+	local bookmark_actions =
+		require("telescope").extensions.vim_bookmarks.actions
+
+	require("telescope").extensions.vim_bookmarks.all({
+		attach_mappings = function(_, map)
+			map("n", "dd", bookmark_actions.delete_selected_or_at_cursor)
+
+			return true
+		end,
+	})
 end
 
 return M
