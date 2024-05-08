@@ -208,19 +208,6 @@ packer.startup(function(use)
 	-- VimWiki
 	require("sx.plugin.vimwiki").preSetup()
 	use("vimwiki/vimwiki")
-
-	-- AI Bard
-	-- pip install bardapi
-	-- https://github.com/dsdanielpark/Bard-API
-	-- Currently broken
-	-- use({
-	-- 	"tzachar/cmp-ai",
-	-- 	setup = function()
-	-- 		require("sx.plugin.cmp-ai")
-	-- 	end,
-	-- })
-
-	use({ "mosajjal/bard-cli", rtp = "nvim" })
 	--
 	-- Shortcuts
 	--
