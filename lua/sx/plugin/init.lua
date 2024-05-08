@@ -430,21 +430,22 @@ packer.startup(function(use)
 	--
 	-- Debugging/Testing
 	--
-	use({
-		"mfussenegger/nvim-dap",
-		opt = true,
-		event = "BufReadPre",
-		module = { "dap" },
-		wants = { "nvim-dap-virtual-text", "nvim-dap-ui" },
-		requires = {
-			"theHamsta/nvim-dap-virtual-text",
-			"rcarriga/nvim-dap-ui",
-			{ "jbyuki/one-small-step-for-vimkind", module = "osv" },
-		},
-		config = function()
-			require("sx.plugin.dap").setup()
-		end,
-	})
+	-- Temporarily disabled as latest version fails to load
+	-- use({
+	-- 	"mfussenegger/nvim-dap",
+	-- 	opt = true,
+	-- 	event = "BufReadPre",
+	-- 	module = { "dap" },
+	-- 	wants = { "nvim-dap-virtual-text", "nvim-dap-ui" },
+	-- 	requires = {
+	-- 		"theHamsta/nvim-dap-virtual-text",
+	-- 		"rcarriga/nvim-dap-ui",
+	-- 		{ "jbyuki/one-small-step-for-vimkind", module = "osv" },
+	-- 	},
+	-- 	config = function()
+	-- 		require("sx.plugin.dap").setup()
+	-- 	end,
+	-- })
 
 	require("sx.plugin.test").source()
 	-- use({ "vim-test/vim-test" }) -- , requires = { "christoomey/vim-tmux-runner" } })
