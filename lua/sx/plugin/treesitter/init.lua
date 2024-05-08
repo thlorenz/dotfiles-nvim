@@ -41,7 +41,10 @@ local function config()
 		},
 		textsubjects = {
 			enable = false,
-			keymaps = { ["."] = "textsubjects-smart", [";"] = "textsubjects-big" },
+			keymaps = {
+				["."] = "textsubjects-smart",
+				[";"] = "textsubjects-big",
+			},
 		},
 		playground = {
 			enable = false,
@@ -73,6 +76,7 @@ local function config()
 			"javascript",
 			"json",
 			"lua",
+			"markdown",
 			"python",
 			"typescript",
 			"tsx",
@@ -88,7 +92,9 @@ end
 
 M.setup = function()
 	if #vim.api.nvim_list_uis() == 0 then
-		Log:debug("headless mode detected, skipping running setup for treesitter")
+		Log:debug(
+			"headless mode detected, skipping running setup for treesitter"
+		)
 		return
 	end
 
@@ -97,7 +103,8 @@ M.setup = function()
 		Log:error("Failed to load treesitter")
 	end
 
-	local status_ok, treesitter_configs = pcall(require, "nvim-treesitter.configs")
+	local status_ok, treesitter_configs =
+		pcall(require, "nvim-treesitter.configs")
 	if not status_ok then
 		Log:error("Failed to load nvim-treesitter.configs")
 		return
