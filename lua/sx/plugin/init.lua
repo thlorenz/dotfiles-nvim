@@ -226,12 +226,12 @@ packer.startup(function(use)
 	--
 
 	-- Syntax
-	-- use({
-	-- 	"nvim-treesitter/nvim-treesitter",
-	-- 	config = function()
-	-- 		require("sx.plugin.treesitter").setup()
-	-- 	end,
-	-- })
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("sx.plugin.treesitter").setup()
+		end,
+	})
 	use({ "ron-rs/ron.vim" })
 	use({ "rvmelkonian/move.vim" })
 
