@@ -482,37 +482,31 @@ packer.startup(function(use)
 	})
 
 	-- Rust
-	-- 	use({
-	-- 		"simrat39/rust-tools.nvim",
-	-- 		requires = { "nvim-lua/plenary.nvim", "rust-lang/rust.vim" },
-	-- 		module = "rust-tools",
-	-- 		ft = { "rust" },
-	-- 		config = function()
-	-- 			require("sx.plugin.rust-tools").setup()
-	-- 		end,
-	-- 	})
-	-- vim.g.rustaceanvim = {
-	-- 	server = {
-	-- 		default_settings = {
-	-- 			env = {
-	-- 				CARGO_TARGET_DIR = "target/rust-analyzer",
-	-- 			},
-	-- 			["rust-analyzer"] = {
-	-- 				env = {
-	-- 					CARGO_TARGET_DIR = "target/rust-analyzer",
-	-- 				},
-	-- 				cargo = { target = "wasm32-unknown-unknown" },
-	-- 			},
-	-- 		},
-	-- 		dap = {
-	-- 			autoload_configurations = false,
-	-- 		},
-	-- 	},
-	-- }
-
+	vim.g.rustaceanvim = {
+		tools = {},
+	}
 	use({
 		"mrcjkb/rustaceanvim",
 		version = "^4", -- Recommended
+		ft = { "rust" },
+	})
+
+	use({
+		"nvim-neotest/neotest",
+		requires = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"mrcjkb/rustaceanvim",
+		},
+		config = function()
+			require("neotest").setup({
+				adapters = {
+					require("rustaceanvim.neotest"),
+				},
+			})
+		end,
 		ft = { "rust" },
 	})
 
