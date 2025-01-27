@@ -1,5 +1,4 @@
 local Log = require("sx.core.log")
--- local harpoon = require("harpoon")
 
 local M = {}
 
@@ -145,12 +144,12 @@ local function config()
 				S = { "<cmd>PackerStatus<cr>", "Status" },
 				u = { "<cmd>PackerUpdate<cr>", "Update" },
 			},
-			l = {
+			L = {
 				"<cmd>Telescope vim_bookmarks all<cr>",
 				"Find Bookmarks",
 			},
-			L = {
-				"<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, ignore_current_buffer = true })<cr>",
+			l = {
+				"<cmd>lua require('telescope.builtin').buffers({ sort_mru = true, sort_lastused, ignore_current_buffer = true })<cr>",
 				"Find Buffer",
 			},
 			f = {
