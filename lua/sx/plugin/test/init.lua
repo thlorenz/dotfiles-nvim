@@ -9,6 +9,7 @@ nmap <silent> tl :TestLast<CR>
 nmap <silent> td :TestVisit<CR>
 
 au FileType rust nmap <silent> tn :TestNearest --tests -- --nocapture<CR>
+au FileType rust nmap <silent> tt :Neotest run<CR>
 au FileType rust nmap <silent> tN :TestNearest --tests --features test -- --nocapture<CR>
 
 " let test#strategy = "dispatch"

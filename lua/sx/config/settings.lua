@@ -117,7 +117,7 @@ M.load_default_options = function()
 
     au BufRead,BufNewFile Cargo.toml,Cargo.lock,*.rs compiler cargo
     au FileType rust noremap tr :wa \| ! cargo run<CR>
-    au FileType rust noremap tt :wa \| ! cargo test --tests -- --nocapture<CR>
+    au FileType rust noremap tT :wa \| ! cargo test --tests -- --nocapture<CR>
     au FileType rust nmap <silent><leader>br :RustRunnables<CR>
     au FileType rust nmap <silent><leader>bb :wa \| Make clippy --tests<CR>
     au FileType rust nmap <silent><leader>bC :wa \| Make check --tests<CR>
