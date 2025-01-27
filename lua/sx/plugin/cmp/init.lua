@@ -77,7 +77,7 @@ function M.setup()
 	capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 	-- TypeScript
-	lspconfig.tsserver.setup({
+	lspconfig.ts_ls.setup({
 		capabilities = capabilities,
 		init_options = {
 			importModuleSpecifier = "relative",
