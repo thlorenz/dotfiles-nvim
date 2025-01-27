@@ -61,17 +61,8 @@ packer.startup(function(use)
 
 	use({ "MattesGroeger/vim-bookmarks" })
 	use({ "tom-anders/telescope-vim-bookmarks.nvim" })
-	-- use({
-	-- 	"ThePrimeagen/harpoon",
-	-- 	branch = "harpoon2",
-	-- 	requires = { { "nvim-lua/plenary.nvim" } },
-	-- 	config = function()
-	-- 		require("sx.plugin.harpoon").setup()
-	-- 	end,
-	-- })
-	--
+
 	-- Telescope
-	--
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
@@ -263,7 +254,12 @@ packer.startup(function(use)
 	-- Surrounding
 	use({ "tpope/vim-surround" })
 
+	--
+	-- AI
+	--
+
 	-- Copilot
+	-- look into https://github.com/zbirenbaum/copilot.lua?
 	vim.cmd([[
     highlight CopilotSuggestion guifg=#304d9f ctermfg=8
     let g:copilot_no_tab_map = v:true
@@ -285,6 +281,16 @@ packer.startup(function(use)
         imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
         let g:copilot_no_tab_map = v:true
       ]])
+		end,
+	})
+
+	-- Cody
+	-- works, but has no project context
+	use({
+		"sourcegraph/sg.nvim",
+		run = "nvim -l build/init.lua",
+		config = function()
+			require("sg").setup()
 		end,
 	})
 
@@ -424,6 +430,17 @@ packer.startup(function(use)
 		end,
 	})
 
+	-- https://github.com/bash-lsp/bash-language-server
+	-- npm i -g bash-language-server
+	vim.api.nvim_create_autocmd("FileType", {
+		pattern = "sh",
+		callback = function()
+			vim.lsp.start({
+				name = "bash-language-server",
+				cmd = { "bash-language-server", "start" },
+			})
+		end,
+	})
 	--
 	-- Startup
 	--
@@ -482,14 +499,13 @@ packer.startup(function(use)
 	})
 
 	-- Rust
-	vim.g.rustaceanvim = {
-		tools = {},
-	}
-	use({
-		"mrcjkb/rustaceanvim",
-		version = "^4", -- Recommended
-		ft = { "rust" },
-	})
+	-- vim.g.rustaceanvim = {
+	-- 	tools = {},
+	-- }
+	-- use({
+	-- 	"mrcjkb/rustaceanvim",
+	-- 	version = "^4", -- Recommended
+	-- })
 
 	use({
 		"nvim-neotest/neotest",
@@ -507,8 +523,10 @@ packer.startup(function(use)
 				},
 			})
 		end,
-		ft = { "rust" },
 	})
+
+	-- Zig
+	-- require 'lspconfig'.zls.setup{}
 
 	-- Go
 	use({ "ray-x/go.nvim" })
