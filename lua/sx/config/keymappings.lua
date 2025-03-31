@@ -41,10 +41,11 @@ local function config()
 			["<C-Left>"] = ":vertical resize +2<CR>",
 			["<C-Right>"] = ":vertical resize -2<CR>",
 
-			-- QuickFix
+			-- QuickFix/LocationList
 			["]q"] = ":cnext<CR>",
 			["[q"] = ":cprev<CR>",
-			["cc"] = ":cclose<CR>",
+			["cc"] = ":cclose<cr>",
+			["cl"] = ":lclose<CR>",
 			["co"] = ":copen<CR>",
 
 			["]g"] = vim.diagnostic.goto_next,

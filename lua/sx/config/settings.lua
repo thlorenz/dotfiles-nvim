@@ -119,10 +119,12 @@ M.load_default_options = function()
     au FileType rust noremap tr :wa \| ! cargo run<CR>
     au FileType rust noremap tT :wa \| ! cargo test --tests -- --nocapture<CR>
     au FileType rust nmap <silent><leader>br :RustRunnables<CR>
-    au FileType rust nmap <silent><leader>bb :wa \| Make clippy --tests<CR>
+    au FileType rust nmap <silent><leader>bb :wa \| Make clippy --tests --all-features<CR>
     au FileType rust nmap <silent><leader>bC :wa \| Make check --tests<CR>
     au FileType rust nmap <silent><leader>bc :wa \| Make build --tests<CR>
     au FileType rust nmap <silent><leader>bB :wa \| Make build --features=test<CR>
+    " Needed to be able to run cargo check on projects that require this env var
+    let PROTOC="/opt/homebrew/bin/protoc"
 
     au BufRead,BufNewFile *.lua set makeprg=luacheck
     au FileType lua noremap <silent><leader>bb :Make . --codes --formatter visual_studio --no-color<CR>
