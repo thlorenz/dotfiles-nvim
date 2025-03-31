@@ -6,8 +6,12 @@ Log.levels = {
 	INFO = 3,
 	WARN = 4,
 	ERROR = 5,
+	[1] = "TRACE",
+	[2] = "DEBUG",
+	[3] = "INFO",
+	[4] = "WARN",
+	[5] = "ERROR",
 }
-vim.tbl_add_reverse_lookup(Log.levels)
 
 local notify_opts = {}
 
@@ -38,19 +42,27 @@ function Log:init()
 					async = false,
 					processors = {
 						structlog.processors.Namer(),
-						structlog.processors.StackWriter({ "line", "file" }, { max_parents = 0, stack_level = 2 }),
+						structlog.processors.StackWriter(
+							{ "line", "file" },
+							{ max_parents = 0, stack_level = 2 }
+						),
 						structlog.processors.Timestamper("%H:%M:%S"),
 					},
 					formatter = structlog.formatters.FormatColorizer( --
 						"%s [%-5s] %s: %-30s",
 						{ "timestamp", "level", "logger_name", "msg" },
-						{ level = structlog.formatters.FormatColorizer.color_level() }
+						{
+							level = structlog.formatters.FormatColorizer.color_level(),
+						}
 					),
 				}),
 				structlog.sinks.File(log_level, self:get_path(), {
 					processors = {
 						structlog.processors.Namer(),
-						structlog.processors.StackWriter({ "line", "file" }, { max_parents = 3, stack_level = 2 }),
+						structlog.processors.StackWriter(
+							{ "line", "file" },
+							{ max_parents = 3, stack_level = 2 }
+						),
 						structlog.processors.Timestamper("%F %H:%M:%S"),
 					},
 					formatter = structlog.formatters.Format( --
