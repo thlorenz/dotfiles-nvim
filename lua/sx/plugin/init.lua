@@ -214,6 +214,7 @@ packer.startup(function(use)
 	-- WhichKey
 	use({
 		"max397574/which-key.nvim",
+		requires = { "echasnovski/mini.icons" },
 		config = function()
 			require("sx.plugin.which-key").setup()
 		end,
@@ -500,12 +501,16 @@ packer.startup(function(use)
 
 	-- Rust
 	-- vim.g.rustaceanvim = {
-	-- 	tools = {},
+	-- 	default_settings = {
+	-- 		["rust-analyzer"] = {
+	-- 			cargo = { ["all-features"] = true },
+	-- 		},
+	-- 	},
 	-- }
-	-- use({
-	-- 	"mrcjkb/rustaceanvim",
-	-- 	version = "^4", -- Recommended
-	-- })
+	use({
+		"mrcjkb/rustaceanvim",
+		version = "^5",
+	})
 
 	use({
 		"nvim-neotest/neotest",
