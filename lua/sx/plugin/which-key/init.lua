@@ -250,7 +250,10 @@ local function config()
 			},
 
 			-- LSP
-			a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+			a = {
+				"<cmd>lua require('actions-preview').code_actions()<cr>",
+				"Code Action",
+			},
 			r = { vim.lsp.buf.rename, "Rename" },
 			e = {
 				name = "LSP",

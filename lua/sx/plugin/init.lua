@@ -42,7 +42,14 @@ packer.startup(function(use)
 	-- 		require("sx.plugin.smart-splits").setup()
 	-- 	end,
 	-- })
-
+	use({
+		"folke/zen-mode.nvim",
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+	})
 	use({ "camgraff/telescope-tmux.nvim" })
 	use({
 		"kyazdani42/nvim-tree.lua",
@@ -285,15 +292,16 @@ packer.startup(function(use)
 		end,
 	})
 
-	-- Cody
-	-- works, but has no project context
+	-- Copilot Chat
+	-- https://github.com/CopilotC-Nvim/CopilotChat.nvim
 	use({
-		"sourcegraph/sg.nvim",
-		run = "nvim -l build/init.lua",
-		config = function()
-			require("sg").setup()
-		end,
+		"CopilotC-Nvim/CopilotChat.nvim",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim" },
+		},
+		build = "make tiktoken",
 	})
+	require("CopilotChat").setup()
 
 	-- local copilot_cmd = [[
 	--   highlight CopilotSuggestion guifg=#304D9F ctermfg=8
@@ -500,18 +508,6 @@ packer.startup(function(use)
 	})
 
 	-- Rust
-	-- vim.g.rustaceanvim = {
-	-- 	default_settings = {
-	-- 		["rust-analyzer"] = {
-	-- 			cargo = { ["all-features"] = true },
-	-- 		},
-	-- 	},
-	-- }
-	use({
-		"mrcjkb/rustaceanvim",
-		version = "^5",
-	})
-
 	use({
 		"nvim-neotest/neotest",
 		requires = {
@@ -519,12 +515,14 @@ packer.startup(function(use)
 			"nvim-lua/plenary.nvim",
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"mrcjkb/rustaceanvim",
+			"rouge8/neotest-rust",
 		},
 		config = function()
 			require("neotest").setup({
 				adapters = {
-					require("rustaceanvim.neotest"),
+					require("neotest-rust")({
+						args = { "--no-capture" },
+					}),
 				},
 			})
 		end,
@@ -535,6 +533,11 @@ packer.startup(function(use)
 
 	-- Go
 	use({ "ray-x/go.nvim" })
+
+	-- Code Actions
+	use({
+		"aznhe21/actions-preview.nvim",
+	})
 
 	if packer_bootstrap then
 		packer.sync()
