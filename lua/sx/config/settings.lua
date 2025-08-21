@@ -147,12 +147,36 @@ M.load_default_options = function()
 
     au FileType make set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
     au FileType javascript,lua,dart,python,css,yaml,typescript set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-    au FileType markdown set tabstop=2 softtabstop=2 shiftwidth=2 tw=95 fo=cqt wm=0 conceallevel=0 concealcursor=nvc
+
     autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$") |
         \   exe "normal! g`\"" |
         \ endif
   ]])
+
+	-- Prompt files should have a textwidth of 60
+	vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+		pattern = "*.md",
+		callback = function(args)
+			local filepath = args.file
+			vim.o.tabstop = 2
+			vim.o.softtabstop = 2
+			vim.o.shiftwidth = 2
+			vim.o.textwidth = 95
+			vim.o.formatoptions = "cqt"
+			vim.o.wrapmargin = 0
+			vim.o.conceallevel = 0
+			vim.o.concealcursor = "nvc"
+
+			vim.notify({ "Filepath: " .. filepath })
+			if filepath:match("prompts/") then
+				vim.bo.textwidth = 60
+				vim.notify({ "Apply prompt settings" })
+			else
+				vim.bo.textwidth = 95
+			end
+		end,
+	})
 end
 
 M.load_defaults = function()
