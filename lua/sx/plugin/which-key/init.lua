@@ -106,6 +106,18 @@ local function config()
 					'<cmd>lua os.execute(string.format("rustrover --line %s %s", vim.api.nvim_win_get_cursor(0)[1], vim.api.nvim_buf_get_name(0)))<CR>',
 					"Open in RustRover",
 				},
+				["0"] = {
+					"<cmd> set conceallevel=0<CR>",
+					"Show all characters",
+				},
+				["1"] = {
+					"<cmd> set conceallevel=1<CR>",
+					"Hide all characters not on the selected line",
+				},
+				["2"] = {
+					"<cmd> set conceallevel=2<CR>",
+					"Hide all characters",
+				},
 			},
 			p = {
 				name = "Packer",
@@ -424,6 +436,11 @@ local function config()
 					end,
 					"Standup",
 				},
+			},
+			-- Windowing
+			z = {
+				"<cmd>ZenMode<cr>",
+				"Zenmode",
 			},
 		},
 	}
